@@ -49,7 +49,7 @@
 
 	<div class="container_signup_signin" id="container_signup_signin">
 		<div class="form-container sign-up-container">
-			<form name="sign-up-form" action="#" onsubmit="return signUpValidateForm()">
+			<form name="sign-up-form" action="/signin" method="post" onsubmit="return signUpValidateForm()">
 				<h1>Create Account</h1>
 				<div class="social-container">
 					<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -57,9 +57,9 @@
 					<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
 				</div>
 				<span>or use your email for registration</span>
-				<input id="sign-up-name" name="sign-up-name" type="text" placeholder="Name" />
-				<input id="sign-up-email" name="sign-up-email" type="email" placeholder="Email" />
-				<input id="sign-up-password" name="sign-up-password" type="password" placeholder="Password" />
+				<input id="signUpName" name="signUpName" type="text" placeholder="Name" />
+				<input id="signUpEmail" name="signUpEmail" type="email" placeholder="Email" />
+				<input id="signUpPassword" name="signUpPassword" type="password" placeholder="Password" />
 				<button type="submit">Sign Up</button>
 			</form>
 		</div>
@@ -83,8 +83,7 @@
 						<%= errorMessage %>
 					  </div>
 				  </div>
-				  <% } %>
-				<a href="#">Forgot your password?</a>
+				<% } %>
 				<button type="submit">Sign In</button>
 			</form>
 		</div>

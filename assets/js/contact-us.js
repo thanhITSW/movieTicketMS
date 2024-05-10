@@ -41,7 +41,7 @@ prevEle = ""+str+"";
 }
 
 function validateForm() {
-  var x = document.forms["contact-us-form"]["fname"].value;
+  var x = document.forms["contact-us-form"]["firstName"].value;
   if (x == "") {
     //   alert("'First Name' can not be empty!!");
     asAlertMsg({
@@ -57,7 +57,7 @@ function validateForm() {
     return false;
   }
 
-  var x = document.forms["contact-us-form"]["lname"].value;
+  var x = document.forms["contact-us-form"]["lastName"].value;
   if (x == "") {
     //   alert("'Last Name' can not be empty!!");
     asAlertMsg({
@@ -89,7 +89,7 @@ function validateForm() {
     return false;
   }
 
-  var x = document.forms["contact-us-form"]["m-num"].value;
+  var x = document.forms["contact-us-form"]["mobile"].value;
   if (x == "") {
     //   alert("'Mobile Number' can not be empty!!");
     asAlertMsg({
@@ -109,7 +109,7 @@ function validateForm() {
   //     return false;
   // }
 
-  var x = document.forms["contact-us-form"]["msg"].value;
+  var x = document.forms["contact-us-form"]["message"].value;
   if (x == "") {
     //   alert("'Message' can not be empty!!");
     asAlertMsg({

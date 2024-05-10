@@ -3,7 +3,7 @@ const signInButton = document.getElementById('signIn');
 const container = document.getElementById('container_signup_signin');
 
 function signUpValidateForm() {
-	var x = document.forms["sign-up-form"]["sign-up-name"].value;
+	var x = document.forms["sign-up-form"]["signUpName"].value;
 	if (x == "") {
 		//   alert("'Name' can not be empty!!");
 		asAlertMsg({
@@ -18,7 +18,7 @@ function signUpValidateForm() {
 		});
 		return false;
 	}
-	x = document.forms["sign-up-form"]["sign-up-email"].value;
+	x = document.forms["sign-up-form"]["signUpEmail"].value;
 	if (x == "") {
 		//   alert("'Email' can not be empty!!");
 		asAlertMsg({
@@ -33,7 +33,7 @@ function signUpValidateForm() {
 		});
 		return false;
 	}
-	x = document.forms["sign-up-form"]["sign-up-password"].value;
+	x = document.forms["sign-up-form"]["signUpPassword"].value;
 	if (x == "") {
 		//   alert("'Password' can not be empty!!");
 		asAlertMsg({
@@ -48,6 +48,32 @@ function signUpValidateForm() {
 		});
 		return false;
 	}
+	if (x.length < 6) {
+		asAlertMsg({
+			type: "error",
+			title: "Error Field",
+			message: "'Password' must be least 6 character!!",
+
+			button: {
+				title: "Close Button",
+				bg: "Cancel Button"
+			}
+		});
+		return false;
+	}
+	else {
+		asAlertMsg({
+		  type: "success",
+		  title: "Submitted",
+		  message: "Create account successfully!!",
+	
+		  button: {
+			title: "Close Button",
+			bg: "Cancel Button"
+		  }
+		});
+		return true;
+	  }
 }
 
 function signInValidateForm() {

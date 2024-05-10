@@ -19696,3 +19696,27 @@ button.closebtn {
   }
 }
 /* Loading ends */
+
+
+
+
+#login_functions {
+  display: none;
+  position: absolute;
+  top: 30px; /* Điều chỉnh vị trí hiển thị của các chức năng */
+  right: 0; /* Điều chỉnh vị trí hiển thị của các chức năng */
+  background-color: white;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+#login_functions a {
+  display: block;
+  text-decoration: none;
+  color: black;
+  padding: 5px;
+}
+
+#login_functions a:hover {
+  background-color: #f0f0f0;
+}

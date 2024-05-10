@@ -48,11 +48,25 @@
           <!--/search-right-->
           <!--/search-right-->
 
-          <div class="Login_SignUp" id="login" style="font-size: 2rem ; display: inline-block; position: relative;">
-            <!-- <li class="nav-item"> -->
-            <a class="nav-link" href="/login"><i class="fa fa-user-circle-o"></i></a>
-            <!-- </li> -->
-          </div>
+          <% if(email.length > 0) {%>
+						<div class="Login_SignUp" id="login_s">
+							<a class="nav-link" href="#" id="login_button"><i class="fa fa-user-circle-o" style="background-color: rgb(94, 94, 240);"></i></a>
+							<div class="functions" id="login_functions">
+								<!-- Các chức năng bạn muốn hiển thị khi nhấp vào nút "Login" -->
+								<a href="/changeInformation">Change information</a>
+								<a href="/logout">Log out</a>
+							</div>
+						</div>
+					<% } %>
+
+					<% if(email.length == 0) {%>
+						<div class="Login_SignUp" id="login"
+						style="font-size: 2rem ; display: inline-block; position: relative;">
+						<!-- <li class="nav-item"> -->
+						<a class="nav-link" href="/login"><i class="fa fa-user-circle-o"></i></a>
+						<!-- </li> -->
+					</div>
+					<% } %>
         </div>
         <!-- toggle switch for light and dark theme -->
         <div class="mobile-position">
@@ -78,18 +92,18 @@
     <p>If you have a question regarding our services,
       feel free to contact us using the form below.</p>
 
-    <form name="contact-us-form" action="#" onsubmit="return validateForm()">
+    <form name="contact-us-form" action="/contact" method="post" onsubmit="return validateForm()">
       <div class="row100" id="fname-row100">
         <div class="col">
           <div class="inputBox" id="fname-inputBox">
-            <input type="text" id="firstname" name="firstname" onclick="triggerAnim('fname')"/>
+            <input type="text" id="firstName" name="firstName" onclick="triggerAnim('fname')"/>
             <span class="text">First Name</span>
             <span class="line" id="fname-line"></span>
           </div>
         </div>
         <div class="col">
           <div class="inputBox" id="lname-inputBox">
-            <input type="text" id="lastname" name="lastname" onclick="triggerAnim('lname')"/>
+            <input type="text" id="lastName" name="lastName" onclick="triggerAnim('lname')"/>
             <span class="text">Last Name</span>
             <span class="line" id="lname-line"></span>
           </div>
@@ -170,6 +184,15 @@
         }
       });
     });
+
+    document.getElementById("login_button").addEventListener("click", function() {
+		var loginFunctions = document.getElementById("login_functions");
+		if (loginFunctions.style.display === "block") {
+			loginFunctions.style.display = "none";
+		} else {
+			loginFunctions.style.display = "block";
+		}
+	});
   </script>
   <script src="/js/bootstrap.min.js"></script>
 </body>

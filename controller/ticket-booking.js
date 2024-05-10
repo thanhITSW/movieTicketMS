@@ -54,7 +54,8 @@ module.exports.showTicket = (req, res) => {
     const detailArray = detail.selected.split(', ');
 
     movieDay = daytime.date + '/5/2024'
-    username = "tanthanh"
+    const user = req.session.user
+    username = user.email
 
     //get day buy ticket
     const currentDate = new Date();
@@ -64,7 +65,7 @@ module.exports.showTicket = (req, res) => {
 
     let day = currentDay + '/' + currentMonth + '/' + currentYear
 
-    let order = new Orders({creation_date: day, username, movieId: data.id, movieName: data.name, movieDate:  movieDay ,screen: daytime.screen , movieShift: daytime.shiftTime, quantity: detail.quantity, selected: detail.selected, movieTotal: detail.total})
+    let order = new Orders({creation_date: day, email: username, movieId: data.id, movieName: data.name, movieDate:  movieDay ,screen: daytime.screen , movieShift: daytime.shiftTime, quantity: detail.quantity, selected: detail.selected, movieTotal: detail.total})
 
     order.save()
         .then(() => {

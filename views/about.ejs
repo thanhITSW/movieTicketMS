@@ -57,12 +57,25 @@
 					<!--/search-right-->
 					<!--/search-right-->
 
-					<div class="Login_SignUp" id="login"
+					<% if(email.length > 0) {%>
+						<div class="Login_SignUp" id="login_s">
+							<a class="nav-link" href="#" id="login_button"><i class="fa fa-user-circle-o" style="background-color: rgb(94, 94, 240);"></i></a>
+							<div class="functions" id="login_functions">
+								<!-- Các chức năng bạn muốn hiển thị khi nhấp vào nút "Login" -->
+								<a href="/changeInformation">Change information</a>
+								<a href="/logout">Log out</a>
+							</div>
+						</div>
+					<% } %>
+
+					<% if(email.length == 0) {%>
+						<div class="Login_SignUp" id="login"
 						style="font-size: 2rem ; display: inline-block; position: relative;">
 						<!-- <li class="nav-item"> -->
 						<a class="nav-link" href="/login"><i class="fa fa-user-circle-o"></i></a>
 						<!-- </li> -->
 					</div>
+					<% } %>
 				</div>
 				<!-- toggle switch for light and dark theme -->
 				<div class="mobile-position">
@@ -155,7 +168,7 @@
 				<img src="/images/tanthanh.jpg" style="width :100%; height: 100%">
 			</div>
 			<div class="details">
-				<h3 id="details-h3-1">Nguye Mai Tan Thanh<br></h3>
+				<h3 id="details-h3-1">Nguyen Mai Tan Thanh<br></h3>
 				<div class="p-sm">
 					<a href="#"><i class="fa fa-linkedin"></i></a>
 					<a href="https://www.facebook.com/thanhdanhsv"><i class="fa fa-facebook"></i></a>
@@ -621,6 +634,15 @@
 				$("header").removeClass("active");
 			}
 		});
+	});
+
+	document.getElementById("login_button").addEventListener("click", function() {
+		var loginFunctions = document.getElementById("login_functions");
+		if (loginFunctions.style.display === "block") {
+			loginFunctions.style.display = "none";
+		} else {
+			loginFunctions.style.display = "block";
+		}
 	});
 </script>
 <script src="/js/bootstrap.min.js"></script>

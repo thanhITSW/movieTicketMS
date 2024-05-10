@@ -99,11 +99,14 @@
 						<!--/search-right-->
 
 					</div>
-					<div class="Login_SignUp" id="login"
-						style="font-size: 2rem ; display: inline-block; position: relative;">
-						<!-- <li class="nav-item"> -->
-						<a class="nav-link" href="sign_in.html"><i class="fa fa-user-circle-o"></i></a>
-						<!-- </li> -->
+					<!-- icon login -->
+					<div class="Login_SignUp" id="login_s">
+						<a class="nav-link" href="#" id="login_button"><i class="fa fa-user-circle-o" style="background-color: rgb(94, 94, 240);"></i></a>
+						<div class="functions" id="login_functions">
+							<!-- Các chức năng bạn muốn hiển thị khi nhấp vào nút "Login" -->
+							<a href="/changeInformation">Change information</a>
+							<a href="/logout">Log out</a>
+						</div>
 					</div>
 				</div>
 				<!-- toggle switch for light and dark theme -->
@@ -132,7 +135,7 @@
                 <fieldset id="ticket">
                     <h2>E-Ticket</h2>
                     <% orders.forEach( order => { %>
-                      <% if(order.username == username) {%>
+                      <% if(order.email == username) {%>
                         <% let array = order.selected.split(", ") %>
                         <% for(let i = 0; i < order.quantity; i++) {%>
                           <% let arraySelected = array[i].split("_") %>
@@ -422,6 +425,15 @@
         for(var i = 0; i < 22; i++){
             document.getElementById("rd" + i).innerText = randomNumber(1, 9);
         }
+
+        document.getElementById("login_button").addEventListener("click", function() {
+          var loginFunctions = document.getElementById("login_functions");
+          if (loginFunctions.style.display === "block") {
+            loginFunctions.style.display = "none";
+          } else {
+            loginFunctions.style.display = "block";
+          }
+        });
       </script>
 </body>
 <script src="https://npmcdn.com/flickity@2/dist/flickity.pkgd.js"></script>
