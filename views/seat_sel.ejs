@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Movie Ticket Booking Widget Flat Responsive Widget Template :: w3layouts</title>
+	<!-- for-mobile-apps -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="keywords"
+		content="Movie Ticket Booking Widget Responsive, Login form web template, Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+	<link href="/css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<script src="/js/jquery-1.11.0.min.js"></script>
+	<script src="/js/jquery.seat-charts.js"></script>
+	
+</head>
+
+<body>
+<div class="content">
+	<h2>Seat Booking</h2>
+	<div class="main">
+		<div class="demo">
+			<div id="seat-map">
+				<div class="front">SCREEN</div>					
+			</div>
+			<div class="booking-details">
+				<table>
+					<tr>
+						<td style="color: red; font-weight: bold;">Movie:</td>
+						<td><%= data.name %></td>
+					</tr>
+					<tr>
+						<td style="color: red; font-weight: bold;">Time:</td>
+						<td><%= daytime.shiftTime %></td>
+					</tr>
+					<tr>
+						<td style="color: red; font-weight: bold;">Tickets:</td>
+						<td><span id="counter">0</span></td>
+					</tr>
+					<tr>
+						<td style="color: red; font-weight: bold;">Total:</td>
+						<td><b><span id="total">0</span><i> VND</i></b></td>
+					</tr>
+					<tr>
+						<td style="color: red; font-weight: bold;">Selected Seats:</td>
+					</tr>
+				</table>
+
+				<div class="clear"></div>
+				<ul id="selected-seats" class="scrollbar scrollbar1"></ul>
+			
+						
+				<div id="legend"></div>
+			</div>
+
+			<div>
+				<button id="confirmButton" class="confirm-button">Confirm Booking</button>
+			</div>
+
+			<div id="confirmationMessage" class="confirmation-message">Booking confirmed!</div>
+			<% shifts.forEach(shift => { %>
+				<% if(daytime.shift_id == shift._id) {%>
+					<div id="sold-seats" style="display: none;"><%= shift.selected %></div>
+				<% } %>
+			<% }) %>
+
+
+			<div id="arraySelected" style="display: none;"></div>
+
+			<script type="text/javascript">
+				var price = 45000; //price
+
+				var choose = []
+				$(document).ready(function () {
+					var $cart = $('#selected-seats'), //Sitting Area
+						$counter = $('#counter'), //Votes
+						$total = $('#total'); //Total money
+
+					var sc = $('#seat-map').seatCharts({
+						map: [ //Seating chart
+							'aaaaaaaaaa',
+							'aaaaaaaaaa',
+							'__________',
+							'aaaaaaaa__',
+							'aaaaaaaaaa',
+							'aaaaaaaaaa',
+							'aaaaaaaaaa',
+							'aaaaaaaaaa',
+							'aaaaaaaaaa',
+							'__aaaaaa__'
+						],
+						naming: {
+							top: false,
+							getLabel: function (character, row, column) {
+								return column;
+							}
+						},
+						legend: { //Definition legend
+							node: $('#legend'),
+							items: [
+								['a', 'available', 'Available'],
+								['a', 'unavailable', 'Sold'],
+								['a', 'selected', 'Selected']
+							]
+						},
+						click: function () { //Click event
+							if (this.status() == 'available') { //optional seat
+								$('<li>R-' + (this.settings.row + 1) + '	S-' + this.settings.label + '</li>')
+									.attr('id', 'cart-item-' + this.settings.id)
+									.data('seatId', this.settings.id)
+									.appendTo($cart);
+
+								$counter.text(sc.find('selected').length + 1);
+								$total.text(recalculateTotal(sc) + price);
+
+								var e = (this.settings.row + 1) + '_' + this.settings.label
+								choose.push(e)
+
+								document.getElementById("arraySelected").innerText = choose.join(", ");
+
+								return 'selected';
+							} else if (this.status() == 'selected') { //Checked
+								//Update Number
+								$counter.text(sc.find('selected').length - 1);
+								//update totalnum
+								$total.text(recalculateTotal(sc) - price);
+
+								var e = (this.settings.row + 1) + '_' + this.settings.label
+								choose = choose.filter(item => item !== e);
+
+								document.getElementById("arraySelected").innerText = choose.join(", ");
+
+								//Delete reservation
+								$('#cart-item-' + this.settings.id).remove();
+								//optional
+								return 'available';
+							} else if (this.status() == 'unavailable') { //sold
+								return 'unavailable';
+							} else {
+								return this.style();
+							}
+						}
+					});
+
+					var selected = document.getElementById('sold-seats').innerText
+					var arr = selected.split(", ")
+					//sold seat
+					sc.get(arr).status(
+						'unavailable');
+
+				});
+				//sum total money
+				function recalculateTotal(sc) {
+					var total = 0;
+					sc.find('selected').each(function () {
+						total += price;
+					});
+
+					return total;
+				}
+
+				$('#confirmButton').click(function() {
+					// Hiển thị thông báo
+					$('#confirmationMessage').fadeIn();
+
+					// Ẩn thông báo sau khoảng thời gian 2000ms (2 giây)
+					setTimeout(function() {
+						$('#confirmationMessage').fadeOut();
+					}, 2000);
+
+					let data = {}
+					data.quantity = document.getElementById('counter').innerText
+					data.total = document.getElementById('total').innerText
+					data.selected = document.getElementById('arraySelected').innerText
+
+					$.ajax({
+						url: '/booking/detail', // Thay thế URL_backend_cua_ban bằng URL thực tế của backend
+						type: 'POST',
+						contentType: 'application/json',
+						data: JSON.stringify(data), // Chuyển đổi đối tượng dataToSend thành chuỗi JSON
+						success: function(response) {
+							// Xử lý phản hồi từ backend nếu cần
+							console.log('Data sent successfully');
+							document.getElementById("seat-sel-iframe").src = "/booking/select";
+							
+						},
+						error: function(xhr, status, error) {
+							// Xử lý lỗi nếu có
+							console.error('Error:', error);
+						}
+					});
+				});
+			</script>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/theme-change-seat-sel.js"></script>
+	<script src="js/jquery.nicescroll.js"></script>
+	<script src="js/scripts.js"></script>
+</body>
+
+</html>
+
+<!-- <script>
+	var count = document.getElementById("counter").innerText
+	var total = document.getElementById("total").innerText
+	console.log(count)
+	console.log(total)
+</script> -->

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Ticket</title>
+    <link rel="stylesheet" type="text/css" href="/css/style-starter.css">
+  <link rel="stylesheet" href="https://npmcdn.com/flickity@2/dist/flickity.css">
+  <link rel="stylesheet" type="text/css" href="/css/progress.css">
+
+  <link rel="stylesheet" type="text/css" href="/css/ticket-booking.css">
+  <!-- ..............For progress-bar............... -->
+  <link rel="stylesheet" type="text/css" href="/css/e-ticket.css">
+
+  <link rel="stylesheet" type="text/css" href="/css/payment.css" />
+  <link href="https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700" rel="stylesheet">
+
+</head>
+
+<body>
+    <header id="site-header" class="w3l-header fixed-top">
+
+        <!--/nav-->
+        <nav class="navbar navbar-expand-lg navbar-light fill px-lg-0 py-0 px-3">
+          <div class="container">
+            <h1><a class="navbar-brand" href="/"><span class="fa fa-play icon-log" aria-hidden="true"></span>
+                TTP Cinema </a></h1>
+            
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            </div>
+    
+            <div class="Login_SignUp" id="login_s">
+              <!-- style="font-size: 2rem ; display: inline-block; position: relative;" -->
+              <!-- <li class="nav-item"> -->
+              <a class="nav-link" href="sign_in.html"><i class="fa fa-user-circle-o"></i></a>
+              <!-- </li> -->
+            </div>
+            <!-- toggle switch for light and dark theme -->
+            <div class="mobile-position">
+              <nav class="navigation">
+                <div class="theme-switch-wrapper">
+                  <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox">
+                    <div class="mode-container">
+                      <i class="gg-sun"></i>
+                      <i class="gg-moon"></i>
+                    </div>
+                  </label>
+                </div>
+              </nav>
+            </div>
+          </div>
+        </nav>
+      </header>
+      <div class="container" id="progress-container-id">
+        <div class="row">
+          <div class="col">
+            <div class="px-0 pt-4 pb-0 mt-3 mb-3">
+              <form id="form">
+                <ul id="progressbar" class="progressbar-class">
+                  <li class="active" id="step1">Show timing selection</li>
+                  <li id="step2" class="active">Seat Selection</li>
+                  <li id="step3" class="active">Payment</li>
+                  <li id="step4" class="active">E-Ticket</li>
+                </ul>
+                <br>
+                <fieldset id="ticket">
+                    <h2>E-Ticket</h2>
+                    <% for(let i = 0; i < detail.quantity; i++){ %>
+                        <% var seat = detailArray[i].split('_') %>
+                        <div class="ticket-body">
+                            <div class="ticket">
+                              <div class="holes-top"></div>
+                              <div class="title">
+                                <p class="cinema">TTP Cinema</p>
+                                <p class="movie-title"><%= data.name %></p>
+                              </div>
+                              <div class="poster">
+                                <img src="/images/banner_cinema.jpg"
+                                  alt="Movie: Only God Forgives" />
+                              </div>
+                              <div class="info">
+                                <table class="info-table ticket-table">
+                                  <tr>
+                                    <th>SCREEN</th>
+                                    <th>ROW_SEAT</th>
+                                    <th>SEAT</th>
+                                  </tr>
+                                  <tr>
+                                    <td class="bigger"><%= daytime.screen %></td>
+                                    <td class="bigger"><%= seat[0] %></td>
+                                    <td class="bigger"><%= seat[1] %></td>
+                                  </tr>
+                                </table>
+                                <table class="info-table ticket-table">
+                                  <tr>
+                                    <th>PRICE</th>
+                                    <th>DATE</th>
+                                    <th>TIME</th>
+                                  </tr>
+                                  <tr>
+                                    <td>45000 VND</td>
+                                    <td><%= daytime.day %> <%= daytime.date %></td>
+                                    <td><%= daytime.shiftTime %></td>
+                                  </tr>
+                                </table>
+                              </div>
+                              <div class="holes-lower"></div>
+                              <div class="serial">
+                                <table class="barcode ticket-table">
+                                  <tr>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                    <td style="background-color:black;"></td>
+                                    <td style="background-color:white;"></td>
+                                  </tr>
+                                </table>
+                                <table class="numbers ticket-table">
+                                  <tr>
+                                    <td id="rd0">9</td>
+                                    <td id="rd1">1</td>
+                                    <td id="rd2">7</td>
+                                    <td id="rd3">3</td>
+                                    <td id="rd4">7</td>
+                                    <td id="rd5">5</td>
+                                    <td id="rd6">4</td>
+                                    <td id="rd7">4</td>
+                                    <td id="rd8">4</td>
+                                    <td id="rd9">5</td>
+                                    <td id="rd10">4</td>
+                                    <td id="rd11">1</td>
+                                    <td id="rd12">4</td>
+                                    <td id="rd13">7</td>
+                                    <td id="rd14">8</td>
+                                    <td id="rd15">7</td>
+                                    <td id="rd16">3</td>
+                                    <td id="rd17">4</td>
+                                    <td id="rd18">1</td>
+                                    <td id="rd19">4</td>
+                                    <td id="rd20">5</td>
+                                    <td id="rd21">2</td>
+                                  </tr>
+                                </table>
+                              </div>
+                            </div>
+                            <br>
+                            <br>
+                          </div>
+                    <% } %>
+                    <input type="button" name="previous-step" class="home-page-btn" value="Browse to Home Page"
+                      onclick="location.href='/';" />
+                  </fieldset>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        function randomNumber(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        for(var i = 0; i < 22; i++){
+            document.getElementById("rd" + i).innerText = randomNumber(1, 9);
+        }
+      </script>
+</body>
+<script src="https://npmcdn.com/flickity@2/dist/flickity.pkgd.js"></script>
+<script type="text/javascript" src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js'>
+</script>
+<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<script src="js/theme-change.js"></script>
+
+<script type="text/javascript" src="js/ticket-booking.js"></script>
+</html>
