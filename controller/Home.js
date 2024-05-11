@@ -84,7 +84,7 @@ module.exports.postLogin = (req, res) => {
             }
 
             req.session.user =  account
-            return res.redirect('/admin');
+            return res.redirect('/movie-manage');
         })
         .catch(e => {
             if(account) {
