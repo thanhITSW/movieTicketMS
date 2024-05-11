@@ -113,6 +113,10 @@
                                 <option value="2">end</option>
                             </select>
                         </div>
+                        <div class="input-group">
+                            <label for="add-banner">Choose banner image:</label>
+                            <input accept="image/*" type="file" id="add-banner">
+                        </div>
 
                         <div class="error-message" id="add-error-message">
                             Error Message
@@ -169,6 +173,10 @@
                                 <option value="1">now showing</option>
                                 <option value="2">end</option>
                             </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="edit-banner">Choose banner image (Use old photos if not selected):</label>
+                            <input accept="image/*" type="file" id="edit-banner" >
                         </div>
 
                         <div class="error-message" id="edit-error-message">
@@ -408,25 +416,20 @@
         const url_video = document.getElementById('add-url_video').value;
         const url_banner = document.getElementById('add-url_banner').value;
         const status = document.getElementById('add-status').value;
-
-        console.log(name)
-        console.log(director)
-        console.log(description)
-        console.log(date)
-        console.log(genres)
-        console.log(cast)
-        console.log(time)
-        console.log(url_video)
-        console.log(url_banner)
-        console.log(status)
+        const bannerFile = document.getElementById('add-banner').files[0];
 
         if (!name || !director || !description || !date || !genres || !cast || !time || !url_video || !url_banner) {
             addErrorMessage.style.display = 'block';
             addErrorMessage.innerHTML = 'Please provide full information';
             return;
         }
+        if(!bannerFile) {
+            addErrorMessage.style.display = 'block';
+            addErrorMessage.innerHTML = 'Please choose banner image';
+            return;
+        }
 
-        addMovie(name, director, description, date, genres, cast, time, url_video, url_banner, status)
+        addMovie(name, director, description, date, genres, cast, time, url_video, url_banner, status, bannerFile)
     });
 
     btnDeleteConfirm.addEventListener('click', function () {
@@ -446,6 +449,7 @@
         const url_video = document.getElementById('edit-url_video').value;
         const url_banner = document.getElementById('edit-url_banner').value;
         const status = document.getElementById('edit-status').value;
+        const bannerFile = document.getElementById('edit-banner').files[0];
 
         if (!name || !director || !description || !date || !genres || !cast || !time || !url_video || !url_banner) {
             editErrorMessage.style.display = 'block';
@@ -453,20 +457,28 @@
             return;
         }
 
-        editMovie(id, name, director, description, date, genres, cast, time, url_video, url_banner, status)
+        editMovie(id, name, director, description, date, genres, cast, time, url_video, url_banner, status, bannerFile)
     });
 
-    function addMovie(name, director, description, date, genres, cast, time, url_video, url_banner, status) {
+    function addMovie(name, director, description, date, genres, cast, time, url_video, url_banner, status, bannerFile) {
         const url = '/movie-manage/movies/add'
-        const data = {
-            name, director, description, date, genres, cast, time, url_video, url_banner, status
-        };
+
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('director', director);
+        formData.append('description', description);
+        formData.append('date', date);
+        formData.append('genres', genres);
+        formData.append('cast', cast);
+        formData.append('time', time);
+        formData.append('url_video', url_video);
+        formData.append('url_banner', url_banner);
+        formData.append('status', status);
+        formData.append('banner', bannerFile);
+
         fetch(url, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
+            body: formData,
         })
             .then(response => {
                 if (!response.ok) {
@@ -513,17 +525,25 @@
             });
     }
 
-    function editMovie(id, name, director, description, date, genres, cast, time, url_video, url_banner, status) {
+    function editMovie(id, name, director, description, date, genres, cast, time, url_video, url_banner, status, bannerFile) {
         const url = '/movie-manage/movies/edit?id=' + id
-        const data = {
-            name, director, description, date, genres, cast, time, url_video, url_banner, status
-        };
+
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('director', director);
+        formData.append('description', description);
+        formData.append('date', date);
+        formData.append('genres', genres);
+        formData.append('cast', cast);
+        formData.append('time', time);
+        formData.append('url_video', url_video);
+        formData.append('url_banner', url_banner);
+        formData.append('status', status);
+        formData.append('banner', bannerFile);
+
         fetch(url, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
+            body: formData,
         })
             .then(response => {
                 if (!response.ok) {
