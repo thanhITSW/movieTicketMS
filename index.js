@@ -6,8 +6,6 @@ const session = require('express-session')
 const bodyParser = require('body-parser');
 const flash = require('express-flash')
 const cookieParser = require('cookie-parser')
-const Account = require('./models/account')
-const bcrypt = require('bcrypt')
 
 const app = express()
 
@@ -15,15 +13,6 @@ app.use(cookieParser('ptt_nmtt_tnp'));
 app.use(session({ cookie: { maxAge: 12000000 } })); //2h
 app.use(flash());
 
-// const hashed = bcrypt.hashSync('123456', 5)
-// let account = new Account({
-//     name: 'admin',
-//     email: 'admin@gmail.com',
-//     password: hashed,
-//     role: 'admin'
-// })
-
-// account.save()
 
 app.set('view engine', 'ejs')
 app.use(express.static(__dirname + '/assets'));
