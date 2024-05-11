@@ -191,7 +191,17 @@
 
             </div>
 
-            <div id="reviewsContent" class="content"></div>
+            <div id="reviewsContent" class="content">
+                <h1>Reviews</h1>
+
+                <div id="reviews">
+                    <table>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
         </div>
 
@@ -224,6 +234,7 @@
     });
     btnReviews.addEventListener('click', function () {
         showContent(reviewsContent);
+        getListMessage()
     });
 
     function showContent(contentElement) {
@@ -368,13 +379,24 @@
         const url_banner = document.getElementById('add-url_banner').value;
         const status = document.getElementById('add-status').value;
 
+        console.log(name)
+        console.log(director)
+        console.log(description)
+        console.log(date)
+        console.log(genres)
+        console.log(cast)
+        console.log(time)
+        console.log(url_video)
+        console.log(url_banner)
+        console.log(status)
+
         if (!name || !director || !description || !date || !genres || !cast || !time || !url_video || !url_banner) {
             addErrorMessage.style.display = 'block';
             addErrorMessage.innerHTML = 'Please provide full information';
             return;
         }
 
-        addMovie(name, director, description, date, genres, cast, time, url_video, url_banner)
+        addMovie(name, director, description, date, genres, cast, time, url_video, url_banner, status)
     });
 
     btnDeleteConfirm.addEventListener('click', function () {
@@ -401,19 +423,138 @@
             return;
         }
 
-        editMovie(id, name, director, description, date, genres, cast, time, url_video, url_banner)
+        editMovie(id, name, director, description, date, genres, cast, time, url_video, url_banner, status)
     });
 
     function addMovie(name, director, description, date, genres, cast, time, url_video, url_banner, status) {
-
+        const url = '/movie-manage/movies/add'
+        const data = {
+            name, director, description, date, genres, cast, time, url_video, url_banner, status
+        };
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(json => {
+                if (json.code == 0) {
+                    addMovieModal.style.display = 'none'
+                    getListMovie()
+                }
+                else {
+                    addErrorMessage.style.display = 'block'
+                    addErrorMessage.innerHTML = json.message
+                }
+            })
+            .catch(error => {
+                console.error('There was a problem with your fetch operation:', error);
+            });
     }
 
     function deleteMovie(id) {
-
+        const url = '/movie-manage/movies/delete?id=' + id
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(json => {
+                if (json.code == 0) {
+                    deleteMovieModal.style.display = 'none'
+                    getListMovie()
+                }
+                else {
+                    deleteErrorMessage.style.display = 'block'
+                    deleteErrorMessage.innerHTML = json.message
+                }
+            })
+            .catch(error => {
+                console.error('There was a problem with your fetch operation:', error);
+            });
     }
 
     function editMovie(id, name, director, description, date, genres, cast, time, url_video, url_banner, status) {
+        const url = '/movie-manage/movies/edit?id=' + id
+        const data = {
+            name, director, description, date, genres, cast, time, url_video, url_banner, status
+        };
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(json => {
+                if (json.code == 0) {
+                    editMovieModal.style.display = 'none'
+                    getListMovie()
+                }
+                else {
+                    editErrorMessage.style.display = 'block'
+                    editErrorMessage.innerHTML = json.message
+                }
+            })
+            .catch(error => {
+                console.error('There was a problem with your fetch operation:', error);
+            });
+    }
 
+    function getListMessage() {
+        const url = '/movie-manage/reviews'
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(json => {
+                if (json.code == 0) {
+                    displayReviews(json.listMessage)
+                }
+                else {
+                    alert(json.message)
+                }
+            })
+            .catch(error => {
+                console.error('There was a problem with your fetch operation:', error);
+            });
+    }
+
+    function displayReviews(listMessage) {
+        const tableBody = document.querySelector('#reviews tbody');
+        tableBody.innerHTML = '';
+
+        listMessage.forEach(review => {
+
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <div class="review">
+                    <strong>${review.lastName + review.firstName}</strong>
+                    <div>Email: <strong>${review.email}</strong></div>
+                    <div>Mobile: <strong>${review.mobile}</strong></div>
+                    <div>${review.message}</div>
+                </div>
+            `;
+            tableBody.appendChild(newRow);
+        });
     }
 
 </script>
