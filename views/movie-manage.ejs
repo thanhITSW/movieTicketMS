@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie management</title>
+    <link rel="stylesheet" href="/css/movies-manage.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div id="navigation">
+
+            <div id="menu">
+
+                <button id="btnMovieManagement">
+                    Movies
+                </button>
+
+                <button id="btnReviews">
+                    Reviews
+                </button>
+
+            </div>
+
+        </div>
+
+        <div id="main">
+
+            <div id="movieManageContent" class="content">
+                <h1>Movie Management</h1>
+
+                <button id="btnAdd">Add movie</button>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Time</th>
+                            <th>Director</th>
+                            <th>Genres</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>FACE OFF 7: ONE WISH</td>
+                            <td>138 min</td>
+                            <td>Lý Hải</td>
+                            <td>Drama, Family</td>
+                            <td>now showing</td>
+                            <td>
+                                <button class="btnEdit">Edit</button>
+                                <button class="btnDelete">Delete</button>
+                                <button class="btnShift">Shift</button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+                <div id="addMovieModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close" id="closeAddMovieModal">&times;</span>
+                        <h2>Add Movie</h2>
+
+                        <div class="input-group">
+                            <label for="add-name">Name:</label>
+                            <input type="text" id="add-name" placeholder="Enter name">
+                        </div>
+                        <div class="input-group">
+                            <label for="add-director">Director:</label>
+                            <input type="text" id="add-director" placeholder="Enter director">
+                        </div>
+                        <div class="input-group">
+                            <label for="add-description">Description:</label>
+                            <input type="text" id="add-description" placeholder="Enter description">
+                        </div>
+                        <div class="input-group">
+                            <label for="add-date">Date:</label>
+                            <input type="text" id="add-date" placeholder="Enter date">
+                        </div>
+                        <div class="input-group">
+                            <label for="add-genres">Genres:</label>
+                            <input type="text" id="add-genres" placeholder="Enter genres">
+                        </div>
+                        <div class="input-group">
+                            <label for="add-cast">Cast:</label>
+                            <input type="text" id="add-cast" placeholder="Enter cast">
+                        </div>
+                        <div class="input-group">
+                            <label for="add-time">Time:</label>
+                            <input type="text" id="add-time" placeholder="Enter time">
+                        </div>
+                        <div class="input-group">
+                            <label for="add-url_video">Url video:</label>
+                            <input type="text" id="add-url_video" placeholder="Enter url video">
+                        </div>
+                        <div class="input-group">
+                            <label for="add-url_banner">Url banner:</label>
+                            <input type="text" id="add-url_banner" placeholder="Enter url banner">
+                        </div>
+                        <div class="input-group">
+                            <label for="add-status">Status:</label>
+                            <select id="add-status">
+                                <option value="0">coming soon</option>
+                                <option value="1">now showing</option>
+                                <option value="2">end</option>
+                            </select>
+                        </div>
+
+                        <div class="error-message" id="add-error-message">
+                            Error Message
+                        </div>
+                        <button id="btnAddConfirm">Confirm</button>
+                    </div>
+                </div>
+
+                <div id="editMovieModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close" id="closeEditMovieModal">&times;</span>
+                        <h2>Edit Movie</h2>
+
+                        <div class="input-group">
+                            <label for="edit-name">Name:</label>
+                            <input type="text" id="edit-name" placeholder="Enter name">
+                        </div>
+                        <div class="input-group">
+                            <label for="edit-director">Director:</label>
+                            <input type="text" id="edit-director" placeholder="Enter director">
+                        </div>
+                        <div class="input-group">
+                            <label for="edit-description">Description:</label>
+                            <input type="text" id="edit-description" placeholder="Enter description">
+                        </div>
+                        <div class="input-group">
+                            <label for="edit-date">Date:</label>
+                            <input type="text" id="edit-date" placeholder="Enter date">
+                        </div>
+                        <div class="input-group">
+                            <label for="edit-genres">Genres:</label>
+                            <input type="text" id="edit-genres" placeholder="Enter genres">
+                        </div>
+                        <div class="input-group">
+                            <label for="edit-cast">Cast:</label>
+                            <input type="text" id="edit-cast" placeholder="Enter cast">
+                        </div>
+                        <div class="input-group">
+                            <label for="edit-time">Time:</label>
+                            <input type="text" id="edit-time" placeholder="Enter time">
+                        </div>
+                        <div class="input-group">
+                            <label for="edit-url_video">Url video:</label>
+                            <input type="text" id="edit-url_video" placeholder="Enter url video">
+                        </div>
+                        <div class="input-group">
+                            <label for="edit-url_banner">Url banner:</label>
+                            <input type="text" id="edit-url_banner" placeholder="Enter url banner">
+                        </div>
+                        <div class="input-group">
+                            <label for="edit-status">Status:</label>
+                            <select id="edit-status">
+                                <option value="0">coming soon</option>
+                                <option value="1">now showing</option>
+                                <option value="2">end</option>
+                            </select>
+                        </div>
+
+                        <div class="error-message" id="edit-error-message">
+                            Error Message
+                        </div>
+                        <button id="btnEditConfirm">Confirm</button>
+                    </div>
+                </div>
+
+                <div id="deleteMovieModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close" id="closeDeleteMovieModal">&times;</span>
+                        <h2>Do you want to delete this movie?</h2>
+                        <div class="error-message" id="delete-error-message">
+                            Error Message
+                        </div>
+                        <button id="btnDeleteConfirm">Confirm</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="reviewsContent" class="content"></div>
+
+        </div>
+
+    </div>
+
+</body>
+
+<script>
+    const btnMovieManagement = document.getElementById('btnMovieManagement');
+    const btnReviews = document.getElementById('btnReviews');
+    const movieManageContent = document.getElementById('movieManageContent');
+    const reviewsContent = document.getElementById('reviewsContent');
+    const btnAdd = document.getElementById('btnAdd');
+    const addMovieModal = document.getElementById('addMovieModal');
+    const editMovieModal = document.getElementById('editMovieModal');
+    const deleteMovieModal = document.getElementById('deleteMovieModal');
+    const closeAddMovieModal = document.getElementById('closeAddMovieModal');
+    const closeEditMovieModal = document.getElementById('closeEditMovieModal');
+    const closeDeleteMovieModal = document.getElementById('closeDeleteMovieModal');
+    const btnAddConfirm = document.getElementById('btnAddConfirm');
+    const btnEditConfirm = document.getElementById('btnEditConfirm');
+    const btnDeleteConfirm = document.getElementById('btnDeleteConfirm');
+    const addErrorMessage = document.getElementById('add-error-message');
+    const deleteErrorMessage = document.getElementById('delete-error-message');
+    const editErrorMessage = document.getElementById('edit-error-message');
+
+    btnMovieManagement.addEventListener('click', function () {
+        showContent(movieManageContent);
+        getListMovie()
+    });
+    btnReviews.addEventListener('click', function () {
+        showContent(reviewsContent);
+    });
+
+    function showContent(contentElement) {
+        const contents = document.querySelectorAll('.content');
+        contents.forEach(content => {
+            content.style.display = 'none';
+        });
+
+        contentElement.style.display = 'block';
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        btnMovieManagement.click();
+    });
+
+    btnAdd.addEventListener('click', function () {
+        addMovieModal.style.display = 'block';
+    });
+
+    closeAddMovieModal.addEventListener('click', function () {
+        addMovieModal.style.display = 'none';
+    });
+    closeEditMovieModal.addEventListener('click', function () {
+        editMovieModal.style.display = 'none';
+    });
+    closeDeleteMovieModal.addEventListener('click', function () {
+        deleteMovieModal.style.display = 'none';
+    });
+
+    function getListMovie() {
+        const url = '/movie-manage/movies'
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(json => {
+                if (json.code == 0) {
+                    displayListMovie(json.listMovie)
+                }
+                else {
+                    alert(json.message)
+                }
+            })
+            .catch(error => {
+                console.error('There was a problem with your fetch operation:', error);
+            });
+    }
+
+    function displayListMovie(listMovie) {
+        const tableBody = document.querySelector('#movieManageContent tbody');
+        tableBody.innerHTML = '';
+
+        listMovie.forEach(movie => {
+            var status = 'coming soon'
+            if (movie.status === 1) {
+                status = 'now showing'
+            }
+            else if (movie.status === 2) {
+                status = 'end'
+            }
+
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td>${movie.name}</td>
+                <td>${movie.time}</td>
+                <td>${movie.director}</td>
+                <td>${movie.genres}</td>
+                <td>${status}</td>
+                <td>
+                    <button class="btnEdit" 
+                        data-id="${movie._id}"
+                        data-name="${movie.name}"
+                        data-director="${movie.director}"
+                        data-des="${movie.des}"
+                        data-date="${movie.date}"
+                        data-genres="${movie.genres}"
+                        data-cast="${movie.cast}"
+                        data-time="${movie.time}"
+                        data-url_video="${movie.url_video}"
+                        data-url_banner="${movie.url_banner}"
+                        data-status="${movie.status}"
+                    >Edit</button>
+                    <button class="btnDelete" data-id="${movie._id}">Delete</button>
+                    <button class="btnShift" data-id="${movie._id}">Shift</button>
+                </td>
+            `;
+            tableBody.appendChild(newRow);
+        });
+
+        addClickEventsForDeleteBtn()
+        addClickEventsForEditBtn()
+    }
+
+    function addClickEventsForDeleteBtn() {
+        const buttons = document.querySelectorAll('.btnDelete');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', function () {
+                const id = button.getAttribute('data-id');
+                deleteMovieModal.style.display = 'block'
+                btnDeleteConfirm.setAttribute('data-id', id);
+            });
+        });
+    }
+
+    function addClickEventsForEditBtn() {
+        const buttons = document.querySelectorAll('.btnEdit');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', function () {
+                const id = button.getAttribute('data-id');
+                editMovieModal.style.display = 'block'
+                btnEditConfirm.setAttribute('data-id', id);
+
+                document.getElementById('edit-name').value = button.getAttribute('data-name');
+                document.getElementById('edit-director').value = button.getAttribute('data-director');
+                document.getElementById('edit-description').value = button.getAttribute('data-des');
+                document.getElementById('edit-date').value = button.getAttribute('data-date');
+                document.getElementById('edit-genres').value = button.getAttribute('data-genres');
+                document.getElementById('edit-cast').value = button.getAttribute('data-cast');
+                document.getElementById('edit-time').value = button.getAttribute('data-time');
+                document.getElementById('edit-url_video').value = button.getAttribute('data-url_video');
+                document.getElementById('edit-url_banner').value = button.getAttribute('data-url_banner');
+                document.getElementById('edit-status').value = button.getAttribute('data-status');
+
+            });
+        });
+    }
+
+    btnAddConfirm.addEventListener('click', function () {
+        const name = document.getElementById('add-name').value;
+        const director = document.getElementById('add-director').value;
+        const description = document.getElementById('add-description').value;
+        const date = document.getElementById('add-date').value;
+        const genres = document.getElementById('add-genres').value;
+        const cast = document.getElementById('add-cast').value;
+        const time = document.getElementById('add-time').value;
+        const url_video = document.getElementById('add-url_video').value;
+        const url_banner = document.getElementById('add-url_banner').value;
+        const status = document.getElementById('add-status').value;
+
+        if (!name || !director || !description || !date || !genres || !cast || !time || !url_video || !url_banner) {
+            addErrorMessage.style.display = 'block';
+            addErrorMessage.innerHTML = 'Please provide full information';
+            return;
+        }
+
+        addMovie(name, director, description, date, genres, cast, time, url_video, url_banner)
+    });
+
+    btnDeleteConfirm.addEventListener('click', function () {
+        const id = this.dataset.id
+        deleteMovie(id)
+    });
+
+    btnEditConfirm.addEventListener('click', function () {
+        const id = this.dataset.id
+        const name = document.getElementById('edit-name').value;
+        const director = document.getElementById('edit-director').value;
+        const description = document.getElementById('edit-description').value;
+        const date = document.getElementById('edit-date').value;
+        const genres = document.getElementById('edit-genres').value;
+        const cast = document.getElementById('edit-cast').value;
+        const time = document.getElementById('edit-time').value;
+        const url_video = document.getElementById('edit-url_video').value;
+        const url_banner = document.getElementById('edit-url_banner').value;
+        const status = document.getElementById('edit-status').value;
+
+        if (!name || !director || !description || !date || !genres || !cast || !time || !url_video || !url_banner) {
+            editErrorMessage.style.display = 'block';
+            editErrorMessage.innerHTML = 'Please provide full information';
+            return;
+        }
+
+        editMovie(id, name, director, description, date, genres, cast, time, url_video, url_banner)
+    });
+
+    function addMovie(name, director, description, date, genres, cast, time, url_video, url_banner, status) {
+
+    }
+
+    function deleteMovie(id) {
+
+    }
+
+    function editMovie(id, name, director, description, date, genres, cast, time, url_video, url_banner, status) {
+
+    }
+
+</script>
+
+</html>

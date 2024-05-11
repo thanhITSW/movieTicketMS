@@ -35,6 +35,7 @@ app.use(cors())
 
 app.use('/', require('./routers/Home'))
 app.use('/booking',require('./routers/ticket-booking'))
+app.use('/movie-manage',require('./routers/movie-manage'))
 
 
 const PORT = process.env.PORT || 3000
