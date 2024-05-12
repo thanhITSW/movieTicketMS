@@ -7,8 +7,15 @@ const bodyParser = require('body-parser');
 const flash = require('express-flash')
 const cookieParser = require('cookie-parser')
 
+const swaggerUi = require('swagger-ui-express');
+const fs = require("fs")
+const YAML = require('yaml')
+
+const file  = fs.readFileSync('./api-docs.yaml', 'utf8')
+const swaggerDocument = YAML.parse(file)
 const app = express()
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(cookieParser('ptt_nmtt_tnp'));
 app.use(session({ cookie: { maxAge: 12000000 } })); //2h
 app.use(flash());

@@ -1,0 +1,540 @@
+openapi: 3.0.3
+
+info:
+  title: Movie ticket booking API
+  description: API documentation for movie ticket booking operations
+  version: 1.0.11
+
+servers:
+  - url: http://localhost:9999
+
+tags:
+  - name: Default
+  - name: User
+  - name: Manager
+
+paths:
+  /:
+    get:
+      tags:
+        - Default
+      summary: Home page interface
+      description: User accesses the home page interface
+      responses:
+        '200':
+          description: Welcome message
+  /about:
+    get:
+      tags:
+        - Default
+      summary: About page interface
+      description: User accesses the about page interface
+      responses:
+        '200':
+          description: Successfully retrieved about page
+  /contact:
+    get:
+      tags:
+        - Default
+      summary: Contact page interface
+      description: User accesses the contact page interface
+      responses:
+        '200':
+          description: Successfully retrieved contact page
+    post:
+      tags:
+        - Default
+      summary: Submit contact form
+      description: User submits a message through the contact form
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                message:
+                  type: string
+      responses:
+        '200':
+          description: Message received successfully
+  /search:
+    post:
+      tags:
+        - Default
+      summary: Perform a search
+      description: User performs a search operation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                query:
+                  type: string
+      responses:
+        '200':
+          description: Search results retrieved successfully
+  /movies:
+    get:
+      tags:
+        - Default
+      summary: Get list of movies
+      description: User retrieves a list of available movies
+      responses:
+        '200':
+          description: Successfully retrieved list of movies
+    post:
+      tags:
+        - User
+      summary: Get data for a specific movie
+      description: User retrieves data for a specific movie
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                movieId:
+                  type: string
+      responses:
+        '200':
+          description: Data for the movie retrieved successfully
+  /history:
+    get:
+      tags:
+        - User
+      summary: Get user's billing history
+      description: User retrieves their billing history
+      responses:
+        '200':
+          description: Successfully retrieved billing history
+  /changeInformation:
+    get:
+      tags:
+        - User
+      summary: Render page to change user information
+      description: User accesses the page to change their information
+      responses:
+        '200':
+          description: Successfully rendered page to change information
+  /changeInformation/change-password:
+    post:
+      tags:
+        - User
+      summary: Change user's password
+      description: User changes their password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                oldPassword:
+                  type: string
+                newPassword:
+                  type: string
+      responses:
+        '200':
+          description: Password changed successfully
+  /changeInformation/update-information:
+    post:
+      tags:
+        - User
+      summary: Update user's information
+      description: User updates their information
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+      responses:
+        '200':
+          description: Information updated successfully
+
+  /booking:
+    get:
+      tags:
+        - User
+      summary: Get available shifts
+      responses:
+        '200':
+          description: Successfully retrieved available shifts
+    post:
+      tags:
+        - User
+      summary: Get data for booking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                // Define properties expected in the request body, if any
+      responses:
+        '302':
+          description: Redirect to booking page
+  /booking/select:
+    get:
+      tags:
+        - User
+      summary: Render seat selection page
+      responses:
+        '200':
+          description: Successfully rendered seat selection page
+    post:
+      tags:
+        - User
+      summary: Get selected shift details
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                // Define properties expected in the request body, if any
+      responses:
+        '302':
+          description: Redirect to seat selection page
+  /booking/detail:
+    post:
+      tags:
+        - User
+      summary: Get ticket detail
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                // Define properties expected in the request body, if any
+      responses:
+        '302':
+          description: Redirect to booking page
+  /booking/ticket:
+    get:
+      tags:
+        - User
+      summary: Render e-ticket page
+      responses:
+        '200':
+          description: Successfully rendered e-ticket page
+  
+  /movie-manage:
+    get:
+      tags:
+        - Manager
+      summary: Render movie management interface
+      responses:
+        '200':
+          description: Successfully rendered movie management interface
+  /movie-manage/movies:
+    get:
+      tags:
+        - Manager
+      summary: Get list of movies
+      responses:
+        '200':
+          description: Successfully retrieved list of movies
+  /movie-manage/shifts:
+    get:
+      tags:
+        - Manager
+      summary: Get list of movie shifts
+      responses:
+        '200':
+          description: Successfully retrieved list of movie shifts
+  /movie-manage/shifts/add:
+    post:
+      tags:
+        - Manager
+      summary: Add new shift for a movie
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                movieId:
+                  type: string
+                screen:
+                  type: string
+                time:
+                  type: string
+                selected:
+                  type: string
+      responses:
+        '200':
+          description: Shift added successfully
+  /movie-manage/shifts/delete:
+    get:
+      tags:
+        - Manager
+      summary: Delete shift
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Shift deleted successfully
+  /movie-manage/movies/add:
+    post:
+      tags:
+        - Manager
+      summary: Add new movie
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                director:
+                  type: string
+                description:
+                  type: string
+                date:
+                  type: string
+                genres:
+                  type: string
+                cast:
+                  type: string
+                time:
+                  type: string
+                url_video:
+                  type: string
+                banner:
+                  type: string
+                status:
+                  type: string
+      responses:
+        '200':
+          description: Movie added successfully
+  /movie-manage/movies/edit:
+    post:
+      tags:
+        - Manager
+      summary: Edit movie details
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+                director:
+                  type: string
+                description:
+                  type: string
+                date:
+                  type: string
+                genres:
+                  type: string
+                cast:
+                  type: string
+                time:
+                  type: string
+                url_video:
+                  type: string
+                banner:
+                  type: string
+                status:
+                  type: string
+      responses:
+        '200':
+          description: Movie details updated successfully
+  /movie-manage/movies/delete:
+    get:
+      tags:
+        - Manager
+      summary: Delete movie
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Movie deleted successfully
+  /movie-manage/reviews:
+    get:
+      tags:
+        - Manager
+      summary: Get list of reviews/messages
+      responses:
+        '200':
+          description: Successfully retrieved list of reviews/messages
+  /movie-manage/changePassword:
+    post:
+      tags:
+        - Manager
+      summary: Change password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                oldPassword:
+                  type: string
+                newPassword:
+                  type: string
+      responses:
+        '200':
+          description: Password changed successfully
+
+
+components:
+  schemas:
+    Account:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          unique: true
+        password:
+          type: string
+        role:
+          type: string
+          default: user
+
+    Movie:
+      type: object
+      properties:
+        name:
+          type: string
+          unique: true
+        director:
+          type: string
+        des:
+          type: string
+        date:
+          type: string
+        genres:
+          type: string
+        cast:
+          type: string
+        time:
+          type: string
+        url_video:
+          type: string
+        url_banner:
+          type: string
+        status:
+          type: integer
+          default: 0
+          enum:
+            - 0
+            - 1
+            - 2
+      required:
+        - name
+        - director
+        - des
+        - date
+        - genres
+        - cast
+        - time
+        - url_video
+        - url_banner
+    Shift:
+      type: object
+      properties:
+        movieId:
+          type: string
+        screen:
+          type: integer
+        time:
+          type: string
+        selected:
+          type: string
+      required:
+        - movieId
+        - screen
+        - time
+        - selected
+    
+    Order:
+      type: object
+      properties:
+        creation_date:
+          type: string
+        email:
+          type: string
+        movieId:
+          type: string
+        movieName:
+          type: string
+        movieDate:
+          type: string
+        screen:
+          type: string
+        movieShift:
+          type: string
+        quantity:
+          type: string
+        selected:
+          type: string
+        movieTotal:
+          type: string
+      required:
+        - creation_date
+        - email
+        - movieId
+        - movieName
+        - movieDate
+        - screen
+        - movieShift
+        - quantity
+        - selected
+        - movieTotal
+
+    Message:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        mobile:
+          type: string
+        message:
+          type: string
+      required:
+        - firstName
+        - lastName
+        - email
+        - mobile
+        - message
