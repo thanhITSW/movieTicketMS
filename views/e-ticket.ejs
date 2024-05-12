@@ -31,12 +31,25 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             </div>
     
-            <div class="Login_SignUp" id="login_s">
-              <!-- style="font-size: 2rem ; display: inline-block; position: relative;" -->
+            <% if(email.length > 0) {%>
+              <div class="Login_SignUp" id="login_s">
+                <a class="nav-link" href="#" id="login_button"><i class="fa fa-user-circle-o" style="background-color: rgb(94, 94, 240);"></i></a>
+                <div class="functions" id="login_functions">
+                  <!-- Các chức năng bạn muốn hiển thị khi nhấp vào nút "Login" -->
+                  <a href="/changeInformation">Change information</a>
+                  <a href="/logout">Log out</a>
+                </div>
+              </div>
+            <% } %>
+  
+            <% if(email.length == 0) {%>
+              <div class="Login_SignUp" id="login"
+              style="font-size: 2rem ; display: inline-block; position: relative;">
               <!-- <li class="nav-item"> -->
-              <a class="nav-link" href="sign_in.html"><i class="fa fa-user-circle-o"></i></a>
+              <a class="nav-link" href="/login"><i class="fa fa-user-circle-o"></i></a>
               <!-- </li> -->
             </div>
+            <% } %>
             <!-- toggle switch for light and dark theme -->
             <div class="mobile-position">
               <nav class="navigation">

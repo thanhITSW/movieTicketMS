@@ -136,12 +136,18 @@ module.exports.getData = (req, res) => {
 
 module.exports.historyBill = (req, res) => {
 
+    let username = ''
     const user = req.session.user
-    username = user.email
-    Order.find()
-        .then(orders => {
-            res.render('history', {orders, username})
-        })
+    if(!user){
+        res.redirect('/login')
+    }
+    else {
+        username = user.email
+        Order.find()
+            .then(orders => {
+                res.render('history', {orders, username})
+            })
+    }
 }
 
 module.exports.about = (req, res) => {

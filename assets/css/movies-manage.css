@@ -133,6 +133,12 @@ th, td {
     width: 50%;
 }
 
+.modal::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
 .close {
     color: #aaa;
     float: right;
@@ -175,6 +181,16 @@ input[type="text"], select {
 
 #togglePassword, #toggleOldPassword, #toggleNewPassword {
     float: right;
+}
+
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
 #btnLogout {
@@ -257,4 +273,88 @@ input[type="text"], select {
 
 .review div strong {
     font-weight: normal;
+}
+
+/* Style cho modal 1 */
+#shiftModal {
+    display: none;
+}
+
+#shiftModal .modal-content {
+    border-radius: 5px;
+}
+
+#shiftModal h2 {
+    margin-top: 0;
+}
+
+#shiftModal p {
+    margin: 5px 0;
+}
+
+#shiftModal button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#shiftModal button:hover {
+    background-color: #45a049;
+}
+
+/* Style cho modal 2 */
+#addShiftModal {
+    display: none;
+}
+
+#addShiftModal .modal-content {
+    border-radius: 5px;
+}
+
+#addShiftModal h2 {
+    margin-top: 0;
+}
+
+#addShiftModal label {
+    display: block;
+}
+
+#addShiftModal input[type="text"],
+#addShiftModal select {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+#addShiftModal input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+#addShiftModal button {
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#addShiftModal button:hover {
+    background-color: #005f6b;
 }

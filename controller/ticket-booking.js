@@ -3,11 +3,16 @@ const Orders = require('../models/orders')
 
 //render booking
 module.exports.shift =  (req, res) => {
+    let email = ''
+    const user = req.session.user
+    if(user){
+        email = user.email
+    }
     const total = req.flash('total') || ''
     const data = req.session.data
     Shifts.find()
         .then(shifts => {
-            res.render('ticket-booking', {shifts, data, total})
+            res.render('ticket-booking', {shifts, data, total, email})
         })
 }
 
@@ -85,6 +90,12 @@ module.exports.showTicket = (req, res) => {
         .then(() => {
             console.log('Update successfully')
         })
+    
 
-    res.render('e-ticket', {data, daytime,detail ,detailArray})
+    let email = ''
+    if(user){
+        email = user.email
+    }
+
+    res.render('e-ticket', {data, daytime,detail ,detailArray, email})
 }

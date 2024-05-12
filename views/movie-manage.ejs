@@ -199,6 +199,89 @@
 
             </div>
 
+            <!-- code shift -->
+            <div id="shiftModal" class="modal">
+                <div class="modal-content">
+                  <span class="close" id="closeShiftModal">&times;</span>
+                  <h2>Screen and time showing</h2>
+                  <div>
+                    <p><strong>Screen 1</strong></p>
+                    <div id="screen1">
+                        <input type="checkbox" id="screen1Time1" name="screen1Time" value="true" checked>
+                        <label for="screen1Time1">1:00 PM</label><br>
+                        <input type="checkbox" id="screen1Time2" name="screen1Time" value="true" checked>
+                        <label for="screen1Time2">2:00 PM</label><br>
+                    </div>
+                    <!-- Thêm các ô checkbox khác nếu cần -->
+                  </div>
+
+                  <div>
+                    <p><strong>Screen 2</strong></p>
+                    <div id="screen2">
+                        <input type="checkbox" id="screen2Time1" name="screen2Time" value="true" checked>
+                        <label for="screen2Time1">1:00 PM</label><br>
+                        <input type="checkbox" id="screen2Time2" name="screen2Time" value="true" checked>
+                        <label for="screen2Time2">2:00 PM</label><br>
+                    </div>
+                    <!-- Thêm các ô checkbox khác nếu cần -->
+                  </div>
+                  <div>
+                    <p><strong>Screen 3</strong></p>
+                    <div id="screen3">
+                        <input type="checkbox" id="screen3Time1" name="screen3Time" value="true" checked>
+                        <label for="screen3Time1">1:00 PM</label><br>
+                        <input type="checkbox" id="screen3Time2" name="screen3Time" value="true" checked>
+                        <label for="screen3Time2">2:00 PM</label><br>
+                    </div>
+                    <!-- Thêm các ô checkbox khác nếu cần -->
+                  </div>
+
+                  <div>
+                    <p><strong>Screen 4</strong></p>
+                    <div id="screen4">
+                        <input type="checkbox" id="screen3Time1" name="screen3Time" value="true" checked>
+                        <label for="screen3Time1">1:00 PM</label><br>
+                        <input type="checkbox" id="screen3Time2" name="screen3Time" value="true" checked>
+                        <label for="screen3Time2">2:00 PM</label><br>
+                    </div>
+                    <!-- Thêm các ô checkbox khác nếu cần -->
+                  </div>
+
+                  <div>
+                    <p><strong>Screen 5</strong></p>
+                    <div id="screen5">
+                        <input type="checkbox" id="screen3Time1" name="screen3Time" value="true" checked>
+                        <label for="screen3Time1">1:00 PM</label><br>
+                        <input type="checkbox" id="screen3Time2" name="screen3Time" value="true" checked>
+                        <label for="screen3Time2">2:00 PM</label><br>
+                    </div>
+                    <!-- Thêm các ô checkbox khác nếu cần -->
+                  </div>
+                  <button id="btnAddNewShift">Add</button>
+                </div>
+              </div>
+
+              <!-- Modal 2: Thêm mới thông tin -->
+            <div id="addShiftModal" class="modal">
+                <div class="modal-content">
+                <span class="close" id="closeAddNewShiftModal">&times;</span>
+                <h2>Add new shift</h2>
+                <select id="screenSelect">
+                    <option value="Screen 1">Screen 1</option>
+                    <option value="Screen 2">Screen 2</option>
+                    <option value="Screen 3">Screen 3</option>
+                    <option value="Screen 3">Screen 4</option>
+                    <option value="Screen 3">Screen 5</option>
+                </select>
+                <input type="text" id="shiftTime" placeholder="Enter shift time" name="shiftTime">
+                <div class="error-message" id="addShift-error-message">
+                    Error Message
+                </div>
+                <button id="btnSaveAddShift">Save</button>
+                </div>
+            </div>
+            <!-- end shift -->
+
             <div id="reviewsContent" class="content">
                 <h1>Reviews</h1>
 
@@ -247,6 +330,18 @@
 
 </body>
 
+<!-- <script>
+    var shiftModal = document.getElementById('shiftModal');
+    var addShiftModal = document.getElementById('addShiftModal');
+    var btnAddNewShift = document.getElementById('btnAddNewShift');
+
+    btnAddNewShift.addEventListener('click', function(){
+        addShiftModal.style.display = 'block';
+    })
+
+
+</script> -->
+
 <script>
     const btnMovieManagement = document.getElementById('btnMovieManagement');
     const btnReviews = document.getElementById('btnReviews');
@@ -258,6 +353,8 @@
     const deleteMovieModal = document.getElementById('deleteMovieModal');
     const closeAddMovieModal = document.getElementById('closeAddMovieModal');
     const closeEditMovieModal = document.getElementById('closeEditMovieModal');
+    const closeAddNewShiftModal = document.getElementById('closeAddNewShiftModal')
+    const closeShiftModal = document.getElementById('closeShiftModal')
     const closeDeleteMovieModal = document.getElementById('closeDeleteMovieModal');
     const btnAddConfirm = document.getElementById('btnAddConfirm');
     const btnEditConfirm = document.getElementById('btnEditConfirm');
@@ -265,6 +362,79 @@
     const addErrorMessage = document.getElementById('add-error-message');
     const deleteErrorMessage = document.getElementById('delete-error-message');
     const editErrorMessage = document.getElementById('edit-error-message');
+    const addShiftErrorMessage = document.getElementById('addShift-error-message')
+
+    //password
+    const changePasswordModal = document.getElementById('changePasswordModal')
+    const btnChangePassword = document.getElementById('btnChangePassword');
+    const btnCloseChangePassword = document.getElementById('closeChangePasswordModal')
+    const btnChangePasswordConfirm = document.getElementById('btnChangePasswordConfirm')
+    const passwordErrorMessage = document.getElementById('change-password-error-message')
+    btnChangePasswordConfirm.addEventListener('click', function(){
+        const oldPassword = document.getElementById('old-password').value
+        const newPassword = document.getElementById('new-password').value
+
+        if(!oldPassword || !newPassword){
+            passwordErrorMessage.style.display = 'block'
+            passwordErrorMessage.innerHTML = 'Please provide full information'
+            return;
+        }
+        else if(oldPassword.length < 6 || newPassword.length < 6){
+            passwordErrorMessage.style.display = 'block'
+            passwordErrorMessage.innerHTML = 'Password must be at least 6 characters'
+            return;
+        }
+        else if(oldPassword == newPassword){
+            passwordErrorMessage.style.display = 'block'
+            passwordErrorMessage.innerHTML = 'New password must be different from old password'
+            return;
+        }
+        else{
+            changePassword(oldPassword, newPassword)
+        }
+    })
+    function changePassword(oldPassword, newPassword){
+        const url = '/movie-manage/changePassword'
+
+        let data = {}
+        data.oldPassword = oldPassword
+        data.newPassword = newPassword
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(json => {
+                if (json.code == 0) {
+                    changePasswordModal.style.display = 'none'
+                }
+                else {
+                    passwordErrorMessage.style.display = 'block'
+                    passwordErrorMessage.innerHTML = json.message
+                }
+            })
+            .catch(error => {
+                console.error('There was a problem with your fetch operation:', error);
+            });
+    }
+    btnChangePassword.addEventListener('click', function(){
+        changePasswordModal.style.display = 'block'
+    })
+
+    btnCloseChangePassword.addEventListener('click', function () {
+        changePasswordModal.style.display = 'none';
+    })
+
+
 
     btnMovieManagement.addEventListener('click', function () {
         showContent(movieManageContent);
@@ -288,10 +458,6 @@
         btnMovieManagement.click();
     });
 
-    btnAdd.addEventListener('click', function () {
-        addMovieModal.style.display = 'block';
-    });
-
     closeAddMovieModal.addEventListener('click', function () {
         addMovieModal.style.display = 'none';
     });
@@ -301,6 +467,134 @@
     closeDeleteMovieModal.addEventListener('click', function () {
         deleteMovieModal.style.display = 'none';
     });
+    closeShiftModal.addEventListener('click', function(){
+        shiftModal.style.display = 'none'
+    });
+    closeAddNewShiftModal.addEventListener('click', function(){
+        addShiftModal.style.display = 'none'
+    })
+
+
+    function getShiftMovie(id){
+        const url = '/movie-manage/shifts'
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(json => {
+                if (json.code == 0) {
+                    displayShiftMovie(json.listShift, id)
+                }
+                else {
+                    alert(json.message)
+                }
+            })
+            .catch(error => {
+                console.error('There was a problem with your fetch operation:', error);
+            });
+    }
+
+    function displayShiftMovie(listShift, id){
+        const div1 = document.getElementById('screen1');
+        const div2 = document.getElementById('screen2')
+        const div3 = document.getElementById('screen3')
+        const div4 = document.getElementById('screen4')
+        const div5 = document.getElementById('screen5')
+
+        div1.innerHTML = ''
+        div2.innerHTML = ''
+        div3.innerHTML = ''
+        div4.innerHTML = ''
+        div5.innerHTML = ''
+
+        listShift.forEach(shift => {
+            if (shift.movieId == id) {
+                const div = document.createElement('div')
+                div.innerHTML = `
+                    <input type="checkbox" id="${shift.screen + shift.time}" name="${shift.screen + 'Time'}" value="true" checked>
+                    <label for="${shift.screen + shift.time}">${shift.time}</label><br>
+                `
+                if(shift.screen == '1'){
+                    div1.appendChild(div)
+                }
+                else if(shift.screen == '2'){
+                    div2.appendChild(div)
+                }
+                else if(shift.screen == '3'){
+                    div3.appendChild(div)
+                }
+                else if(shift.screen == '4'){
+                    div4.appendChild(div)
+                }
+                else if(shift.screen == '5'){
+                    div5.appendChild(div)
+                }
+            }
+        })
+
+        addClickNewShift(id)
+    }
+
+    function addClickNewShift(id){
+        var addShiftModal = document.getElementById('addShiftModal');
+        var btnAddNewShift = document.getElementById('btnAddNewShift');
+
+        btnAddNewShift.addEventListener('click', function(){
+            addShiftModal.style.display = 'block';
+        })
+
+        var btnSaveAddShift = document.getElementById('btnSaveAddShift')
+
+        btnSaveAddShift.addEventListener('click', function(){
+            const screen = document.getElementById('screenSelect').value
+            const time = document.getElementById('shiftTime').value
+
+            const url = '/movie-manage/shifts/add'
+
+            if(!screen || !time){
+                addShiftErrorMessage.style.display = 'block'
+                addShiftErrorMessage.innerHTML = 'Please provide full information'
+                return;
+            }
+
+            let data = {}
+            data.movieId = id
+            data.screen = screen
+            data.time = time
+            data.selected = ''
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(json => {
+                    if (json.code == 0) {
+                        addShiftModal.style.display = 'none'
+                        shiftModal.style.display = 'none'
+                        getListMovie(id)
+                    }
+                    else {
+                        addShiftErrorMessage.style.display = 'block'
+                        addShiftErrorMessage.innerHTML = json.message
+                    }
+                })
+                .catch(error => {
+                    console.error('There was a problem with your fetch operation:', error);
+                });
+        })
+
+    }
 
     function getListMovie() {
         const url = '/movie-manage/movies'
@@ -367,6 +661,19 @@
 
         addClickEventsForDeleteBtn()
         addClickEventsForEditBtn()
+        addClickEventsForShiftBtn()
+    }
+
+    function addClickEventsForShiftBtn(){
+        const buttons = document.querySelectorAll('.btnShift');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', function () {
+                shiftModal.style.display = 'block'
+                const id = button.getAttribute('data-id');
+                getShiftMovie(id);
+            });
+        });
     }
 
     function addClickEventsForDeleteBtn() {
