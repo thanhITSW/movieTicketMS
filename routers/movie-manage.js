@@ -11,6 +11,8 @@ Router.get('/shifts', Controller.get_shift_movie)
 
 Router.post('/shifts/add', Controller.add_shift)
 
+Router.get('/shifts/delete', Controller.delete_shift)
+
 Router.post('/movies/add', Controller.add_movie)
 
 Router.post('/movies/edit', Controller.edit_movie)

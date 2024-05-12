@@ -174,6 +174,29 @@ module.exports.edit_movie = (req, res) => {
     })
 }
 
+module.exports.delete_shift = (req, res) => {
+    const id = req.query.id
+
+    if (!id) {
+        return res.json({ code: 1, message: "Please provide shift Id" })
+    }
+
+    Shift.findByIdAndDelete(id)
+        .then(shift => {
+            if (!shift) {
+                return res.json({ code: 1, message: "Id not found" })
+            }
+
+            return res.json({ code: 0, message: `Delete shift successfully` })
+        })
+        .catch(e => {
+            if (e.message.includes('Cast to ObjectId failed')) {
+                return res.json({ code: 1, message: "Invalid Id" })
+            }
+            return res.json({ code: 1, message: "Delete failed, An error has occurred" })
+        })
+}
+
 module.exports.delete_movie = (req, res) => {
     const id = req.query.id
 

@@ -257,6 +257,7 @@
                     </div>
                     <!-- Thêm các ô checkbox khác nếu cần -->
                   </div>
+                  <button id="saveShift">Save</button>
                   <button id="btnAddNewShift">Add</button>
                 </div>
               </div>
@@ -343,6 +344,7 @@
 </script> -->
 
 <script>
+    const btnSaveShift = document.getElementById('saveShift');
     const btnMovieManagement = document.getElementById('btnMovieManagement');
     const btnReviews = document.getElementById('btnReviews');
     const movieManageContent = document.getElementById('movieManageContent');
@@ -440,6 +442,11 @@
         showContent(movieManageContent);
         getListMovie()
     });
+
+    btnAdd.addEventListener('click', function () {
+        addMovieModal.style.display = 'block';
+    });
+
     btnReviews.addEventListener('click', function () {
         showContent(reviewsContent);
         getListMessage()
@@ -514,8 +521,8 @@
             if (shift.movieId == id) {
                 const div = document.createElement('div')
                 div.innerHTML = `
-                    <input type="checkbox" id="${shift.screen + shift.time}" name="${shift.screen + 'Time'}" value="true" checked>
-                    <label for="${shift.screen + shift.time}">${shift.time}</label><br>
+                    <input type="checkbox" id="${shift._id}" name="${shift.screen + 'Time'}" value="true" checked>
+                    <label for="${shift._id}">${shift.time}</label><br>
                 `
                 if(shift.screen == '1'){
                     div1.appendChild(div)
@@ -536,6 +543,41 @@
         })
 
         addClickNewShift(id)
+        saveShiftClick()
+    }
+
+    function saveShiftClick(){
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const id = checkbox.getAttribute('id')
+            if (this.checked == false) {
+
+                btnSaveShift.addEventListener('click', function(){
+                    const url = '/movie-manage/shifts/delete?id=' + id
+                    fetch(url)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(json => {
+                            if (json.code == 0) {
+                                shiftModal.style.display = 'none' 
+                                location.reload()      
+                            }
+                            else {
+                                alert(json.message)
+                            }
+                        })
+                        .catch(error => {
+                            console.error('There was a problem with your fetch operation:', error);
+                        });
+                })
+            }
+        });
+    });
     }
 
     function addClickNewShift(id){

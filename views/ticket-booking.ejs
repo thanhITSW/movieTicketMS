@@ -199,7 +199,7 @@
             </fieldset>
             <fieldset>
               <!-- Payment Page -->
-              <form method="post" action="/booking/payment">
+              <form name="payment-form">
                 <div id="payment_div">
                   <div class="payment-row">
                     <div class="col-75">
@@ -218,7 +218,7 @@
                                   </div>
                                   <div class="radio-input">
                                     <input type="radio" id="card" />
-                                    <% if(total != '') {%>
+                                    <% if(total.length > 0) {%>
                                       Pay <%= total %> VND with credit card
                                     <% } %>
                                   </div>
@@ -240,11 +240,11 @@
                             <div class="payment-row">
                               <div class="col-50">
                                 <label for="cname">Cardholder's Name</label>
-                                <input type="text" id="cname" name="cardname" placeholder="Firstname Lastname" required />
+                                <input type="text" id="cardname" name="cardname" placeholder="Firstname Lastname" required />
                               </div>
                               <div class="col-50">
                                 <label for="ccnum">Credit card number</label>
-                                <input type="text" id="ccnum" name="cardnumber" placeholder="xxxx-xxxx-xxxx-xxxx"
+                                <input type="text" id="cardnumber" name="cardnumber" placeholder="xxxx-xxxx-xxxx-xxxx"
                                   required />
                               </div>
                             </div>
