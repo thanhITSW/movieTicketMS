@@ -3,6 +3,7 @@ const Orders = require('../models/orders')
 const moment = require('moment')
 const crypto = require('crypto')
 const querystring = require('qs')
+const sendMail = require('../config/sendEmail')
 const { Random, MersenneTwister19937 } = require('random-js');
 
 
@@ -110,6 +111,7 @@ module.exports.showTicket = (req, res) => {
         email = user.email
     }
 
+    sendMail(user.email, daytime.screen, detail.selected, detail.total, day ,daytime.shiftTime, data.name)
     res.render('e-ticket', {data, daytime,detail ,detailArray, email})
 }
 
