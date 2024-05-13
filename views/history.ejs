@@ -170,9 +170,15 @@
                                     <th>TIME</th>
                                   </tr>
                                   <tr>
-                                    <td>45000 VND</td>
-                                    <td><% order.movieDate %></td>
-                                    <td><% order.movieShift %></td>
+                                    <% if(arraySelected[0] >= 8) {%>
+                                      <td>65000 VND</td>
+                                    <% }else if(arraySelected[0] >= 4){ %>
+                                      <td>55000 VND</td>
+                                    <% }else{ %>
+                                      <td>45000 VND</td>
+                                    <% } %>
+                                    <td><%= order.movieDate %></td>
+                                    <td><%= order.movieShift %></td>
                                   </tr>
                                 </table>
                               </div>

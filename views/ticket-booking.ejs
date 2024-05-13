@@ -14,7 +14,7 @@
   <!-- ..............For progress-bar............... -->
   <link rel="stylesheet" type="text/css" href="/css/e-ticket.css">
 
-  <link rel="stylesheet" type="text/css" href="/css/payment.css" />
+  <link rel="stylesheet" type="text/css" href="/css/payment1.css" />
   <link href="https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700" rel="stylesheet">
 </head>
 
@@ -194,10 +194,10 @@
                 </iframe>
               </div>
               <br>
-              <input type="button" name="next-step" class="next-step" value="Proceed to Payment"/>
+              <input type="button" name="next-step" class="next-step" value="Proceed to Payment" onclick="location.href='/booking/payment';"/>
               <input type="button" name="previous-step" class="previous-step" value="Back" href="/booking" />
             </fieldset>
-            <fieldset>
+            <fieldset style="display: none;">
               <!-- Payment Page -->
               <form name="payment-form">
                 <div id="payment_div">

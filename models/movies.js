@@ -13,6 +13,12 @@ const MovieSchema = new Schema({
     cast: String,
     time: String,
     url_video: String,
+    audio: {
+        type: String,
+        default: 'English'
+    },
+    subTitle: String,
+    minAge: Number,
     url_banner: String,
     status: {
         type: Number,

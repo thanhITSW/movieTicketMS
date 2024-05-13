@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Payment Successful</title>
+        <style>
+            .container {
+                text-align: center;
+                margin-top: 50px;
+            }
+            .back-button {
+                margin-top: 20px;
+                padding: 10px 20px;
+                background-color: #4caf50;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h2>Payment Successful!</h2>
+            <p>Your payment has been processed successfully.</p>
+            <p>Thank you for your purchase!</p>
+            <p>Please check your email to get the ticket.</p>
+
+            <button class="back-button" onclick="redirectToHomePage()">
+                Back to Home
+            </button>
+        </div>
+
+        <script>
+            function redirectToHomePage() {
+                window.location.href = "/"; // Đường dẫn đến trang chủ của bạn
+            }
+        </script>
+    </body>
+</html>

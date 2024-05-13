@@ -64,31 +64,59 @@
 				<% } %>
 			<% }) %>
 
-
+			<div id="seatOfScreen" style="display: none;"><%= daytime.screen %></div>
 			<div id="arraySelected" style="display: none;"></div>
 
 			<script type="text/javascript">
 				var price = 45000; //price
 
+				var screenSelected = document.getElementById('seatOfScreen').innerText
+				var seatScreen = []
 				var choose = []
+				if(screenSelected == 1 || screenSelected == 5){
+					seatScreen = [ //Seating chart
+							'aaaaaaaaaa',
+							'aaaaaaaaaa',
+							'aaaaaaaaaa',
+							'aaaaaaaaaa',
+							'aaaaaaaaaa',
+							'aaaaaaaaaa',
+							'aaaaaaaaaa',
+							'aaaaaaaaaa',
+							'aaaaaaaaaa',
+							'aaaaaaaaaa']
+				}
+				else if(screenSelected == 2 || screenSelected == 4){
+					seatScreen = [ //Seating chart
+							'aaaaaaaaa',
+							'aaaaaaaaa',
+							'aaaaaaaaa',
+							'aaaaaaaaa',
+							'aaaaaaaaa',
+							'aaaaaaaaa',
+							'aaaaaaaaa',
+							'aaaaaaaaa',
+							'aaaaaaaaa']
+				}
+				else{
+					seatScreen = [ //Seating chart
+							'aaaaaaaaaa',
+							'aaaaaaaaaa',
+							'aaaaaaaaaa',
+							'aaaaaaaaaa',
+							'aaaaaaaaaa',
+							'aaaaaaaaaa',
+							'aaaaaaaaaa',
+							'aaaaaaaaaa']
+				}
 				$(document).ready(function () {
 					var $cart = $('#selected-seats'), //Sitting Area
 						$counter = $('#counter'), //Votes
 						$total = $('#total'); //Total money
 
+
 					var sc = $('#seat-map').seatCharts({
-						map: [ //Seating chart
-							'aaaaaaaaaa',
-							'aaaaaaaaaa',
-							'__________',
-							'aaaaaaaa__',
-							'aaaaaaaaaa',
-							'aaaaaaaaaa',
-							'aaaaaaaaaa',
-							'aaaaaaaaaa',
-							'aaaaaaaaaa',
-							'__aaaaaa__'
-						],
+						map: seatScreen,
 						naming: {
 							top: false,
 							getLabel: function (character, row, column) {
@@ -111,8 +139,10 @@
 									.appendTo($cart);
 
 								$counter.text(sc.find('selected').length + 1);
-								$total.text(recalculateTotal(sc) + price);
 
+								var currentPrice = calculatePrice(this.settings.row + 1); // tính toán giá vé dựa trên số hàng
+
+								$total.text(parseInt($total.text()) + currentPrice);
 								var e = (this.settings.row + 1) + '_' + this.settings.label
 								choose.push(e)
 
@@ -122,8 +152,10 @@
 							} else if (this.status() == 'selected') { //Checked
 								//Update Number
 								$counter.text(sc.find('selected').length - 1);
+								
+								var currentPrice = calculatePrice(this.settings.row + 1);
 								//update totalnum
-								$total.text(recalculateTotal(sc) - price);
+								$total.text(parseInt($total.text()) - currentPrice);
 
 								var e = (this.settings.row + 1) + '_' + this.settings.label
 								choose = choose.filter(item => item !== e);
@@ -149,14 +181,15 @@
 						'unavailable');
 
 				});
-				//sum total money
-				function recalculateTotal(sc) {
-					var total = 0;
-					sc.find('selected').each(function () {
-						total += price;
-					});
 
-					return total;
+				function calculatePrice(row) {
+					if (row >= 8) {
+						return 65000; // cập nhật giá vé cho hàng 8 trở lên
+					} else if (row >= 4) {
+						return 55000; // cập nhật giá vé cho hàng từ 4 đến 7
+					} else {
+						return 45000; // cập nhật giá vé cho hàng từ 1 đến 3
+					}
 				}
 
 				$('#confirmButton').click(function() {

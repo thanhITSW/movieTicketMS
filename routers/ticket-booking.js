@@ -15,4 +15,10 @@ Router.post('/detail', TickerController.detail)
 
 Router.get('/ticket', TickerController.showTicket)
 
+Router.get('/payment', TickerController.payment)
+
+Router.post("/create_payment_url", TickerController.VNPay)
+
+Router.get("/vnpay_return", TickerController.VNPayReturn)
+
 module.exports = Router

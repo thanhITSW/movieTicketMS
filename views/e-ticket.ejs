@@ -72,12 +72,6 @@
           <div class="col">
             <div class="px-0 pt-4 pb-0 mt-3 mb-3">
               <form id="form">
-                <ul id="progressbar" class="progressbar-class">
-                  <li class="active" id="step1">Show timing selection</li>
-                  <li id="step2" class="active">Seat Selection</li>
-                  <li id="step3" class="active">Payment</li>
-                  <li id="step4" class="active">E-Ticket</li>
-                </ul>
                 <br>
                 <fieldset id="ticket">
                     <h2>E-Ticket</h2>
@@ -114,7 +108,13 @@
                                     <th>TIME</th>
                                   </tr>
                                   <tr>
-                                    <td>45000 VND</td>
+                                    <% if(seat[0] >= 8) {%>
+                                      <td>65000 VND</td>
+                                    <% }else if(seat[0] >= 4){ %>
+                                      <td>55000 VND</td>
+                                    <% }else{ %>
+                                      <td>45000 VND</td>
+                                    <% } %>
                                     <td><%= daytime.day %> <%= daytime.date %></td>
                                     <td><%= daytime.shiftTime %></td>
                                   </tr>

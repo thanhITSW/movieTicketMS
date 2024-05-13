@@ -98,6 +98,18 @@
                             <input type="text" id="add-time" placeholder="Enter time">
                         </div>
                         <div class="input-group">
+                            <label for="add-audio">Audio:</label>
+                            <input type="text" id="add-audio" placeholder="Enter audio">
+                        </div>
+                        <div class="input-group">
+                            <label for="add-subTitle">Subtitle:</label>
+                            <input type="text" id="add-subTitle" placeholder="Enter Subtitle">
+                        </div>
+                        <div class="input-group">
+                            <label for="add-minAge">Rated:</label>
+                            <input type="text" id="add-minAge" placeholder="Enter rated age">
+                        </div>
+                        <div class="input-group">
                             <label for="add-url_video">Url video:</label>
                             <input type="text" id="add-url_video" placeholder="Enter url video">
                         </div>
@@ -157,6 +169,18 @@
                         <div class="input-group">
                             <label for="edit-time">Time:</label>
                             <input type="text" id="edit-time" placeholder="Enter time">
+                        </div>
+                        <div class="input-group">
+                            <label for="edit-audio">Audio:</label>
+                            <input type="text" id="edit-audio" placeholder="Enter audio">
+                        </div>
+                        <div class="input-group">
+                            <label for="edit-subTitle">Subtitle:</label>
+                            <input type="text" id="edit-subTitle" placeholder="Enter Subtitle">
+                        </div>
+                        <div class="input-group">
+                            <label for="edit-minAge">Rated:</label>
+                            <input type="text" id="edit-minAge" placeholder="Enter rated age">
                         </div>
                         <div class="input-group">
                             <label for="edit-url_video">Url video:</label>
@@ -690,6 +714,9 @@
                         data-genres="${movie.genres}"
                         data-cast="${movie.cast}"
                         data-time="${movie.time}"
+                        data-audio = "${movie.audio}"
+                        data-subTitle = "${movie.subTitle}"
+                        data-minAge="${movie.minAge}"
                         data-url_video="${movie.url_video}"
                         data-url_banner="${movie.url_banner}"
                         data-status="${movie.status}"
@@ -746,6 +773,9 @@
                 document.getElementById('edit-genres').value = button.getAttribute('data-genres');
                 document.getElementById('edit-cast').value = button.getAttribute('data-cast');
                 document.getElementById('edit-time').value = button.getAttribute('data-time');
+                document.getElementById('edit-audio').value = button.getAttribute('data-audio');
+                document.getElementById('edit-subTitle').value = button.getAttribute('data-subTitle');
+                document.getElementById('edit-minAge').value = button.getAttribute('data-minAge');
                 document.getElementById('edit-url_video').value = button.getAttribute('data-url_video');
                 document.getElementById('edit-url_banner').value = button.getAttribute('data-url_banner');
                 document.getElementById('edit-status').value = button.getAttribute('data-status');
@@ -762,12 +792,15 @@
         const genres = document.getElementById('add-genres').value;
         const cast = document.getElementById('add-cast').value;
         const time = document.getElementById('add-time').value;
+        const audio = document.getElementById('add-audio').value;
+        const subTitle = document.getElementById('add-subTitle').value;
+        const minAge = document.getElementById('add-minAge').value;
         const url_video = document.getElementById('add-url_video').value;
         const url_banner = document.getElementById('add-url_banner').value;
         const status = document.getElementById('add-status').value;
         const bannerFile = document.getElementById('add-banner').files[0];
 
-        if (!name || !director || !description || !date || !genres || !cast || !time || !url_video || !url_banner) {
+        if (!name || !director || !description || !date || !genres || !cast || !time ||!audio || !subTitle || !minAge || !url_video || !url_banner) {
             addErrorMessage.style.display = 'block';
             addErrorMessage.innerHTML = 'Please provide full information';
             return;
@@ -778,7 +811,7 @@
             return;
         }
 
-        addMovie(name, director, description, date, genres, cast, time, url_video, url_banner, status, bannerFile)
+        addMovie(name, director, description, date, genres, cast, time, audio, subTitle, minAge ,url_video, url_banner, status, bannerFile)
     });
 
     btnDeleteConfirm.addEventListener('click', function () {
@@ -795,21 +828,24 @@
         const genres = document.getElementById('edit-genres').value;
         const cast = document.getElementById('edit-cast').value;
         const time = document.getElementById('edit-time').value;
+        const audio = document.getElementById('edit-audio').value;
+        const subTitle = document.getElementById('edit-subTitle').value;
+        const minAge = document.getElementById('edit-minAge').value;
         const url_video = document.getElementById('edit-url_video').value;
         const url_banner = document.getElementById('edit-url_banner').value;
         const status = document.getElementById('edit-status').value;
         const bannerFile = document.getElementById('edit-banner').files[0];
 
-        if (!name || !director || !description || !date || !genres || !cast || !time || !url_video || !url_banner) {
+        if (!name || !director || !description || !date || !genres || !cast || !time || !audio || !subTitle || !minAge || !url_video || !url_banner) {
             editErrorMessage.style.display = 'block';
             editErrorMessage.innerHTML = 'Please provide full information';
             return;
         }
 
-        editMovie(id, name, director, description, date, genres, cast, time, url_video, url_banner, status, bannerFile)
+        editMovie(id, name, director, description, date, genres, cast, time, audio, subTitle, minAge ,url_video, url_banner, status, bannerFile)
     });
 
-    function addMovie(name, director, description, date, genres, cast, time, url_video, url_banner, status, bannerFile) {
+    function addMovie(name, director, description, date, genres, cast, time, audio, subTitle, minAge ,url_video, url_banner, status, bannerFile) {
         const url = '/movie-manage/movies/add'
 
         const formData = new FormData();
@@ -820,6 +856,9 @@
         formData.append('genres', genres);
         formData.append('cast', cast);
         formData.append('time', time);
+        formData.append('audio', audio);
+        formData.append('subTitle', subTitle);
+        formData.append('minAge', minAge);
         formData.append('url_video', url_video);
         formData.append('url_banner', url_banner);
         formData.append('status', status);
@@ -874,7 +913,7 @@
             });
     }
 
-    function editMovie(id, name, director, description, date, genres, cast, time, url_video, url_banner, status, bannerFile) {
+    function editMovie(id, name, director, description, date, genres, cast, time, audio, subTitle, minAge ,url_video, url_banner, status, bannerFile) {
         const url = '/movie-manage/movies/edit?id=' + id
 
         const formData = new FormData();
@@ -885,6 +924,9 @@
         formData.append('genres', genres);
         formData.append('cast', cast);
         formData.append('time', time);
+        formData.append('audio', audio);
+        formData.append('subTitle', subTitle);
+        formData.append('minAge', minAge);
         formData.append('url_video', url_video);
         formData.append('url_banner', url_banner);
         formData.append('status', status);

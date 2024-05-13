@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link href="/css/payment.css" rel="stylesheet" />
+        <link rel="stylesheet" href="/css/style-starter.css">
+        <link href="//fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,600&display=swap"
+            rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Payment</title>
+    </head>
+
+    <body>
+        <!--  -->
+        <section class="payment-section">
+            <h2 class="payment-title">Online Payment Form</h2>
+            <form action="/submit_payment" method="post" class="payment-form">
+                <label for="name" class="form-label">Full Name:</label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    class="form-input"
+                    value="<%= user.name %>"
+                    disabled
+                /><br />
+                <label for="email" class="form-label">Email:</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    class="form-input"
+                    value="<%= user.email %>"
+                    disabled
+                /><br />
+                <label for="event" class="form-label">Movie Name:</label>
+                <input
+                    type="text"
+                    id="event"
+                    name="event"
+                    class="form-input"
+                    value="<%= movie.name %>"
+                    disabled
+                /><br />
+                <div class="ticketPrice">
+                    <label for="amount" class="form-label"
+                        >Total Ticket Price Of The Movie:</label
+                    >
+                    <p class="price">
+                        <span style="font-size: 25px" id="price"> <%= detail.total %></span> VND
+                    </p>
+                </div>
+                <label for="payment" class="form-label"
+                    >Online Payment Method:</label
+                >
+                <div id="payment" class="payment-options">
+                    <img
+                        src="/images/vnpay.jpg"
+                        alt="VNPAY"
+                        class="payment-icon"
+                        id="vnpay"
+                    />
+                    <img
+                        src="/images/zalopay.png"
+                        alt="ZaloPay"
+                        class="payment-icon"
+                        id="zalopay"
+                    />
+                </div>
+                <p id="paymentMessage" class="payment-message"></p>
+                <div class="form-button">
+                    <button type="button" id="backButton" class="back-button">
+                        Back
+                    </button>
+                    <button
+                        type="button"
+                        id="PayButton"
+                        class="pay-button"
+                        onclick="payButton()"
+                    >
+                        Pay
+                    </button>
+                </div>
+            </form>
+        </section>
+        <script>
+            let choose = 0;
+            document
+                .getElementById("vnpay")
+                .addEventListener("click", function () {
+                    document.getElementById("paymentMessage").innerHTML =
+                        'You have chosen: <span class="payment-method">VNPAY</span>';
+                    choose = 1;
+                });
+            document
+                .getElementById("zalopay")
+                .addEventListener("click", function () {
+                    document.getElementById("paymentMessage").innerHTML =
+                        'You have chosen: <span class="payment-method">ZaloPay</span>';
+                    choose = 2;
+                });
+
+            function payVnPay() {
+                let body = {
+                    bankCode: "VNBANK",
+                    language: "en",
+                };
+                fetch(`/booking/create_payment_url`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(body),
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        // Chuyển hướng người dùng đến URL đã tạo
+                        window.location.href = data.url;
+                    })
+                    .catch((error) => {
+                        console.error("Error:", error);
+                    });
+            }
+
+            async function zaloPay() {
+                let body = {
+                    bankCode: "Paypal",
+                    language: "en",
+                };
+                fetch(
+                    `/booking/create_zalopayment_url`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(body),
+                    }
+                )
+                    .then((response) => response.json())
+                    .then((data) => {
+                        window.location.href = data.url;
+                    })
+                    .catch((error) => {
+                        console.error("Error:", error);
+                    });
+            }
+
+            async function payButton() {
+                if (choose === 1) return payVnPay();
+                else if (choose === 2) return zaloPay();
+                else return alert("Please choose payment method");
+            }
+        </script>
+    </body>
+</html>

@@ -72,9 +72,9 @@ module.exports.add_movie = (req, res) => {
     let uploader = upload.single('banner')
     uploader(req, res, err => {
 
-        var { name, director, description, date, genres, cast, time, url_video, url_banner, status } = req.body
+        var { name, director, description, date, genres, cast, time, audio, subTitle, minAge ,url_video, url_banner, status } = req.body
 
-        if (!name || !director || !description || !date || !genres || !cast || !time || !url_video || !url_banner || !status) {
+        if (!name || !director || !description || !date || !genres || !cast || !time ||!audio || !subTitle || !minAge || !url_video || !url_banner || !status) {
             return res.json({ code: 1, message: "Please provide full information" })
         }
 
@@ -85,7 +85,7 @@ module.exports.add_movie = (req, res) => {
         }
 
         let movie = new Movie({
-            name, director, des: description, date, genres, cast, time, url_video, url_banner, status
+            name, director, des: description, date, genres, cast, time, audio, subTitle, minAge, url_video, url_banner, status
         })
 
         movie.save()
@@ -115,22 +115,22 @@ module.exports.edit_movie = (req, res) => {
     uploader(req, res, err => {
 
         const id = req.query.id
-        var { name, director, description, date, genres, cast, time, url_video, url_banner, status } = req.body
+        var { name, director, description, date, genres, cast, time, audio, subTitle, minAge, url_video, url_banner, status } = req.body
 
         if (!id) {
             return res.json({ code: 1, message: "Please provide movie Id" })
         }
 
-        if (!name || !director || !description || !date || !genres || !cast || !time || !url_video || !url_banner || !status) {
+        if (!name || !director || !description || !date || !genres || !cast || !time ||!audio || !subTitle || !minAge || !url_video || !url_banner || !status) {
             return res.json({ code: 1, message: "Please provide full information" })
         }
 
         var banner = req.file
 
         let dataUpdate = {
-            name, director, des: description, date, genres, cast, time, url_video, url_banner, status
+            name, director, des: description, date, genres, cast, time, audio, subTitle, minAge, url_video, url_banner, status
         }
-        let supportedFields = ['name', 'director', 'des', 'date', 'genres', 'cast', 'time', 'url_video', 'url_banner', 'status']
+        let supportedFields = ['name', 'director', 'des', 'date', 'genres', 'cast', 'time','audio', 'subTitle', 'minAge' ,'url_video', 'url_banner', 'status']
 
         for (field in dataUpdate) {
             if (!supportedFields.includes(field)) {

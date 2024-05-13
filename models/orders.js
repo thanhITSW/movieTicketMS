@@ -12,6 +12,7 @@ const OrderSchema = new Schema({
     quantity: String,
     selected: String,
     movieTotal: String,
+    paymentMethod: String,
 })
 
 module.exports = mongoose.model('Order', OrderSchema)
