@@ -291,6 +291,15 @@
         for(var i = 0; i < 22; i++){
             document.getElementById("rd" + i).innerText = randomNumber(1, 9);
         }
+
+        document.getElementById("login_button").addEventListener("click", function() {
+          var loginFunctions = document.getElementById("login_functions");
+          if (loginFunctions.style.display === "block") {
+            loginFunctions.style.display = "none";
+          } else {
+            loginFunctions.style.display = "block";
+          }
+        });
       </script>
 </body>
 <script src="https://npmcdn.com/flickity@2/dist/flickity.pkgd.js"></script>
