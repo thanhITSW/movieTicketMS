@@ -708,8 +708,11 @@ ul.book-left li {
     margin: 4px 2px; /* Khoảng cách giữa nút và các phần khác */
     cursor: pointer; /* Con trỏ khi rê chuột */
     border-radius: 10px; /* Độ cong viền */
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Hiệu ứng bóng */
-    transition: 0.3s; /* Hiệu ứng chuyển động */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Hiệu ứng bóng */
+    position: fixed; /* Cố định vị trí */
+    bottom: 20px; /* Cách cạnh dưới 20px */
+    right: 20px; /* Cách cạnh phải 20px */
+    z-index: 999; /* Layer trên cùng */
 }
 
 .confirm-button:hover {
@@ -727,5 +730,5 @@ ul.book-left li {
     left: 50%; /* Đặt left ở giữa */
     transform: translate(-50%, -50%); /* Dịch chuyển 50% theo chiều dọc và ngang */
     z-index: 999; /* Layer trên cùng */
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Hiệu ứng bóng */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Hiệu ứng bóng */
 }
