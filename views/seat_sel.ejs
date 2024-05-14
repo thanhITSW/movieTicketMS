@@ -65,15 +65,17 @@
 			<% }) %>
 
 			<div id="seatOfScreen" style="display: none;"><%= daytime.screen %></div>
+			<div id="dateScreen" style="display: none;"><%= daytime.day %></div>
 			<div id="arraySelected" style="display: none;"></div>
 
 			<script type="text/javascript">
 				var price = 45000; //price
 
 				var screenSelected = document.getElementById('seatOfScreen').innerText
+				var day = document.getElementById('dateScreen').innerText
 				var seatScreen = []
 				var choose = []
-				if(screenSelected == 1 || screenSelected == 5){
+				if(screenSelected == 1){
 					seatScreen = [ //Seating chart
 							'aaaaaaaaaa',
 							'aaaaaaaaaa',
@@ -86,7 +88,7 @@
 							'aaaaaaaaaa',
 							'aaaaaaaaaa']
 				}
-				else if(screenSelected == 2 || screenSelected == 4){
+				else if(screenSelected == 2){
 					seatScreen = [ //Seating chart
 							'aaaaaaaaa',
 							'aaaaaaaaa',
@@ -98,10 +100,19 @@
 							'aaaaaaaaa',
 							'aaaaaaaaa']
 				}
-				else{
+				else if(screenSelected == 3){
 					seatScreen = [ //Seating chart
 							'aaaaaaaaaa',
 							'aaaaaaaaaa',
+							'aaaaaaaaaa',
+							'aaaaaaaaaa',
+							'aaaaaaaaaa',
+							'aaaaaaaaaa',
+							'aaaaaaaaaa',
+							'aaaaaaaaaa']
+				}
+				else{
+					seatScreen = [ //Seating chart
 							'aaaaaaaaaa',
 							'aaaaaaaaaa',
 							'aaaaaaaaaa',
@@ -183,12 +194,45 @@
 				});
 
 				function calculatePrice(row) {
-					if (row >= 8) {
-						return 65000; // cập nhật giá vé cho hàng 8 trở lên
-					} else if (row >= 4) {
-						return 55000; // cập nhật giá vé cho hàng từ 4 đến 7
-					} else {
-						return 45000; // cập nhật giá vé cho hàng từ 1 đến 3
+					if(day == 'SATURDAY' || day == 'SUNDAY'){
+						if(screenSelected == 4 || screenSelected == 5){
+							if (row >= 5) {
+								return 85000; // cập nhật giá vé cho hàng 8 trở lên
+							} else if (row >= 3) {
+								return 75000; // cập nhật giá vé cho hàng từ 4 đến 7
+							} else {
+								return 65000; // cập nhật giá vé cho hàng từ 1 đến 3
+							}
+						}
+						else{
+							if (row >= 8) {
+								return 75000; // cập nhật giá vé cho hàng 8 trở lên
+							} else if (row >= 4) {
+								return 65000; // cập nhật giá vé cho hàng từ 4 đến 7
+							} else {
+								return 55000; // cập nhật giá vé cho hàng từ 1 đến 3
+							}
+						}
+					}
+					else{
+						if(screenSelected == 4 || screenSelected == 5){
+							if (row >= 5) {
+								return 75000; // cập nhật giá vé cho hàng 8 trở lên
+							} else if (row >= 3) {
+								return 65000; // cập nhật giá vé cho hàng từ 4 đến 7
+							} else {
+								return 55000; // cập nhật giá vé cho hàng từ 1 đến 3
+							}
+						}
+						else{
+							if (row >= 8) {
+								return 65000; // cập nhật giá vé cho hàng 8 trở lên
+							} else if (row >= 4) {
+								return 55000; // cập nhật giá vé cho hàng từ 4 đến 7
+							} else {
+								return 45000; // cập nhật giá vé cho hàng từ 1 đến 3
+							}
+						}
 					}
 				}
 

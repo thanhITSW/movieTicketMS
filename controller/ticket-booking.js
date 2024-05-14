@@ -111,7 +111,7 @@ module.exports.showTicket = (req, res) => {
         email = user.email
     }
 
-    sendMail(user.email, daytime.screen, detail.selected, detail.total, day ,daytime.shiftTime, data.name)
+    sendMail(user.email, daytime.screen, detail.selected, detail.total, day ,daytime.shiftTime, data.name, movieDay)
     res.render('e-ticket', {data, daytime,detail ,detailArray, email})
 }
 

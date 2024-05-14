@@ -15,7 +15,7 @@ let transporter = nodemailer.createTransport({
     }
 });
 
-async function sendMail(email, screen, seat, total, date, time, movieName) {
+async function sendMail(email, screen, seat, total, date, time, movieName, showDate) {
     // Generate QR code
     const qrData = `Screen: ${screen},Movie name: ${movieName} ,Selected seat: ${seat}, Total price: ${total}, Date: ${date}, Time: ${time}`;
     const qrImage = await qrcode.toDataURL(qrData);
@@ -31,7 +31,8 @@ async function sendMail(email, screen, seat, total, date, time, movieName) {
             <p>Screen: ${screen}</p>
             <p>Selected seat: ${seat}</p>
             <p>Total price: ${total}</p>
-            <p>Date: ${date}</p>
+            <p>Purchase date: ${date}</p>
+            <p>Show date: ${showDate}</p>
             <p>Time: ${time}</p>
             <img src="https://cdn.pixabay.com/photo/2013/07/12/14/45/qr-code-148732_1280.png" alt="QR Code" width="200" height="200">
         `

@@ -108,13 +108,47 @@
                                     <th>TIME</th>
                                   </tr>
                                   <tr>
-                                    <% if(seat[0] >= 8) {%>
-                                      <td>65000 VND</td>
-                                    <% }else if(seat[0] >= 4){ %>
-                                      <td>55000 VND</td>
-                                    <% }else{ %>
-                                      <td>45000 VND</td>
-                                    <% } %>
+                                    <% 
+                                      var price;
+                                      if(daytime.day == "SATURDAY" || daytime.day == "SUNDAY"){
+                                          if(daytime.screen == 4 || daytime.screen == 5){
+                                              if (seat[0] >= 5) {
+                                                  price = 85000; // cập nhật giá vé cho hàng 8 trở lên
+                                              } else if (seat[0] >= 3) {
+                                                  price = 75000; // cập nhật giá vé cho hàng từ 4 đến 7
+                                              } else {
+                                                  price = 65000; // cập nhật giá vé cho hàng từ 1 đến 3
+                                              }
+                                          } else {
+                                              if (seat[0] >= 8) {
+                                                  price = 75000; // cập nhật giá vé cho hàng 8 trở lên
+                                              } else if (seat[0] >= 4) {
+                                                  price = 65000; // cập nhật giá vé cho hàng từ 4 đến 7
+                                              } else {
+                                                  price = 55000; // cập nhật giá vé cho hàng từ 1 đến 3
+                                              }
+                                          }
+                                      } else {
+                                          if(daytime.screen == 4 || daytime.screen == 5){
+                                              if (seat[0] >= 5) {
+                                                  price = 75000; // cập nhật giá vé cho hàng 8 trở lên
+                                              } else if (seat[0] >= 3) {
+                                                  price = 65000; // cập nhật giá vé cho hàng từ 4 đến 7
+                                              } else {
+                                                  price = 55000; // cập nhật giá vé cho hàng từ 1 đến 3
+                                              }
+                                          } else {
+                                              if (seat[0] >= 8) {
+                                                  price = 65000; // cập nhật giá vé cho hàng 8 trở lên
+                                              } else if (seat[0] >= 4) {
+                                                  price = 55000; // cập nhật giá vé cho hàng từ 4 đến 7
+                                              } else {
+                                                  price = 45000; // cập nhật giá vé cho hàng từ 1 đến 3
+                                              }
+                                          }
+                                      }
+                                    %>
+                                    <td><%= price %> VND</td>
                                     <td><%= daytime.day %> <%= daytime.date %></td>
                                     <td><%= daytime.shiftTime %></td>
                                   </tr>
